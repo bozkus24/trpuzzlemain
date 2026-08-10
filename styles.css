@@ -58,30 +58,32 @@ body {
 .menu-btn:hover { background: #f0f0f0; }
 
 .brand {
-  font-family: var(--serif);
-  font-weight: 800;
-  font-size: 27px;
-  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
   color: var(--ink);
   text-decoration: none;
   line-height: 1;
 }
 
-.brand-sep {
-  font-weight: 500;
-  color: #9b9b9b;
-  margin: 0 7px;
+.brand-logo {
+  display: block;
+  height: 40px;
+  width: auto;
 }
 
-/* Mobilde marka ortalanır (NYT mobil düzeni gibi) */
+.brand-text {
+  font-family: var(--serif);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: 0.2px;
+}
+
 @media (max-width: 720px) {
-  .site-header { justify-content: flex-start; }
-  .brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 25px;
-  }
+  .site-header { gap: 8px; }
+  .brand { gap: 9px; }
+  .brand-logo { height: 34px; }
+  .brand-text { font-size: 22px; }
 }
 
 /* ─────────────── Yan menü ─────────────── */

@@ -1,6 +1,6 @@
 # trpuzzlemain
 
-Türkçe günlük bulmaca oyunlarının ortak anasayfası. **Harfle**, **Harf500**, **Petek**, **Bağla**, **Kesme** ve **Şehirle** oyunlarına tek sayfadan erişim sağlar.
+**[trpuzzle.com](https://trpuzzle.com)** — Türkçe günlük bulmaca oyunlarının ortak anasayfası. **Harfle**, **Harf500**, **Petek**, **Bağla**, **Kesme** ve **Şehirle** oyunlarına tek sayfadan erişim sağlar.
 
 Tamamen statik bir sitedir (HTML + CSS + JS) — derleme adımı yoktur; GitHub Pages, Netlify veya herhangi bir statik hosting üzerinde doğrudan yayınlanabilir.
 
@@ -11,6 +11,9 @@ Tamamen statik bir sitedir (HTML + CSS + JS) — derleme adımı yoktur; GitHub 
 | `index.html` | Anasayfa — 6 oyun kartı, üst bar ve yan menü |
 | `styles.css` | Tüm stiller (masaüstü 3 sütun, mobil 2 sütun) |
 | `script.js` | Yan menü, "Oyna" butonları ve "çok yakında" bildirimi |
+| `logo.png` | Orijinal TrPuzzle logosu (yüksek çözünürlük, kaynak dosya) |
+| `assets/logo.png` | Header için optimize edilmiş logo (şeffaf arka plan, ~37 KB) |
+| `assets/favicon.png` | Logodan üretilen sekme simgesi (64×64) |
 
 ## Logoları ekleme
 
