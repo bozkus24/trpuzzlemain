@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   TR Bulmaca — Anasayfa etkileşimleri
+   TrPuzzle — Anasayfa etkileşimleri
    ═══════════════════════════════════════════════ */
 
 (function () {

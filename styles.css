@@ -1,17 +1,19 @@
 /* ═══════════════════════════════════════════════════════════
-   TR Bulmaca — Anasayfa stilleri (NYT Games esintili)
+   TrPuzzle — Anasayfa stilleri (çıkartma/oyuncak stili)
+   Logonun izometrik, kalın konturlu dilinden türetildi.
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  --bg: #f4f4f2;
-  --card-bg: #ffffff;
-  --ink: #121212;
-  --ink-soft: #5a5a5a;
-  --line: #e2e2e2;
-  --btn-border: #d0d0d0;
-  --serif: "Roboto Slab", Georgia, "Times New Roman", serif;
+  --sky: #d9edf7;        /* gökyüzü zemin */
+  --sky-dot: #bcd9e9;    /* zemindeki noktalar */
+  --paper: #ffffff;      /* çıkartma kartların yüzü */
+  --ink: #1a1a1a;        /* kontur ve metin */
+  --ink-soft: #4c5560;
+  --sun: #ffc93c;        /* buton sarısı */
+  --sun-deep: #f5b91e;
+  --coral: #ff6f61;      /* vurgu (başlık altı çizgisi) */
+  --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --radius-card: 10px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,7 +22,9 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: var(--sans);
-  background: var(--bg);
+  background-color: var(--sky);
+  background-image: radial-gradient(var(--sky-dot) 1.7px, transparent 1.7px);
+  background-size: 26px 26px;
   color: var(--ink);
   min-height: 100vh;
   display: flex;
@@ -35,11 +39,11 @@ body {
   z-index: 50;
   display: flex;
   align-items: center;
-  gap: 14px;
-  height: 64px;
+  gap: 12px;
+  height: 66px;
   padding: 0 18px;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
 }
 
 .menu-btn {
@@ -49,18 +53,18 @@ body {
   width: 42px;
   height: 42px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   background: transparent;
   color: var(--ink);
   cursor: pointer;
 }
 
-.menu-btn:hover { background: #f0f0f0; }
+.menu-btn:hover { background: var(--sun); }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
+  gap: 10px;
   color: var(--ink);
   text-decoration: none;
   line-height: 1;
@@ -68,22 +72,22 @@ body {
 
 .brand-logo {
   display: block;
-  height: 40px;
+  height: 42px;
   width: auto;
 }
 
 .brand-text {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 800;
-  font-size: 26px;
+  font-size: 27px;
   letter-spacing: 0.2px;
 }
 
 @media (max-width: 720px) {
-  .site-header { gap: 8px; }
-  .brand { gap: 9px; }
-  .brand-logo { height: 34px; }
-  .brand-text { font-size: 22px; }
+  .site-header { gap: 7px; }
+  .brand { gap: 8px; }
+  .brand-logo { height: 36px; }
+  .brand-text { font-size: 23px; }
 }
 
 /* ─────────────── Yan menü ─────────────── */
@@ -92,7 +96,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: rgba(0, 0, 0, 0.42);
+  background: rgba(20, 35, 45, 0.45);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
@@ -107,9 +111,9 @@ body {
   bottom: 0;
   z-index: 100;
   width: min(300px, 84vw);
-  background: #fff;
-  box-shadow: 2px 0 18px rgba(0, 0, 0, 0.14);
-  transform: translateX(-102%);
+  background: var(--paper);
+  border-right: 3px solid var(--ink);
+  transform: translateX(-103%);
   transition: transform 0.28s cubic-bezier(0.33, 1, 0.68, 1);
   display: flex;
   flex-direction: column;
@@ -121,14 +125,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 20px;
-  border-bottom: 1px solid var(--line);
+  padding: 16px 20px;
+  border-bottom: 3px solid var(--ink);
 }
 
 .drawer-title {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 800;
-  font-size: 21px;
+  font-size: 22px;
 }
 
 .drawer-close {
@@ -138,16 +142,16 @@ body {
   width: 38px;
   height: 38px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   background: transparent;
   color: var(--ink);
   cursor: pointer;
 }
 
-.drawer-close:hover { background: #f0f0f0; }
+.drawer-close:hover { background: var(--sun); }
 
 .drawer-nav {
-  padding: 10px 8px;
+  padding: 12px 10px;
   overflow-y: auto;
 }
 
@@ -155,22 +159,22 @@ body {
   display: flex;
   align-items: center;
   gap: 13px;
-  padding: 13px 14px;
-  border-radius: 10px;
-  font-family: var(--serif);
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-family: var(--display);
   font-weight: 700;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--ink);
   text-decoration: none;
 }
 
-.drawer-link:hover { background: #f4f4f2; }
+.drawer-link:hover { background: var(--sky); }
 
 .swatch {
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
-  border: 1.5px solid rgba(0, 0, 0, 0.22);
+  width: 20px;
+  height: 20px;
+  border-radius: 7px;
+  border: 2.5px solid var(--ink);
   flex-shrink: 0;
 }
 
@@ -179,84 +183,88 @@ body {
 main {
   flex: 1;
   width: 100%;
-  max-width: 980px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 30px 20px 56px;
+  padding: 38px 20px 60px;
 }
 
 .page-title {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(24px, 3.4vw, 30px);
+  font-size: clamp(34px, 5vw, 46px);
+  line-height: 1.05;
   text-align: center;
+}
+
+.title-squiggle {
+  display: block;
+  width: clamp(120px, 18vw, 170px);
+  margin: 2px auto 0;
+  color: var(--coral);
 }
 
 .page-subtitle {
   text-align: center;
   color: var(--ink-soft);
-  font-size: 15px;
-  margin-top: 6px;
-  margin-bottom: 28px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 34px;
 }
 
-/* ─────────────── Oyun kartları ─────────────── */
+/* ─────────────── Oyun kartları (çıkartmalar) ─────────────── */
 
 .games-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 30px 26px;
 }
 
 .game-card {
-  background: var(--card-bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
-}
-
-.game-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.11);
-}
-
-.card-top {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 14px;
+  padding: 26px 18px 24px;
+  background: var(--paper);
+  border: 3.5px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: 7px 7px 0 var(--ink);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.game-card:hover {
+  transform: rotate(0deg) translate(-2px, -6px);
+  box-shadow: 11px 13px 0 var(--ink);
+}
+
+.card-patch {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 30px 14px 24px;
+  width: clamp(96px, 24vw, 118px);
+  aspect-ratio: 1;
+  background: var(--patch, var(--sky));
+  border: 3.5px solid var(--ink);
+  border-radius: 30px;
 }
 
-.card-logo {
-  width: clamp(62px, 20vw, 88px);
-  height: clamp(62px, 20vw, 88px);
-}
-
-.card-logo svg,
-.card-logo img {
+.card-patch svg,
+.card-patch img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 66%;
+  height: 66%;
   object-fit: contain;
 }
 
 .card-name {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(19px, 2.6vw, 26px);
+  font-size: clamp(22px, 2.8vw, 28px);
   line-height: 1.1;
   text-align: center;
   color: var(--ink);
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 22px 18px 26px;
 }
 
 /* ─────────────── Butonlar ─────────────── */
@@ -266,30 +274,46 @@ main {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 230px;
-  height: 46px;
-  border: 1px solid var(--btn-border);
+  max-width: 210px;
+  height: 50px;
+  border: 3px solid var(--ink);
   border-radius: 999px;
-  background: #fff;
+  background: var(--sun);
   color: var(--ink);
-  font-family: var(--sans);
+  font-family: var(--display);
   font-weight: 700;
-  font-size: 15.5px;
+  font-size: 19px;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.14s ease, border-color 0.14s ease, transform 0.08s ease;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: background 0.14s ease, box-shadow 0.1s ease, transform 0.1s ease;
 }
 
-.btn:hover { background: #f6f6f6; border-color: #b9b9b9; }
-.btn:active { transform: scale(0.975); }
+.btn:hover { background: var(--sun-deep); }
+
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* Klavye odağı */
+.btn:focus-visible,
+.menu-btn:focus-visible,
+.drawer-close:focus-visible,
+.drawer-link:focus-visible,
+.brand:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 3px;
+}
 
 /* ─────────────── Alt bilgi ─────────────── */
 
 .site-footer {
-  padding: 26px 20px 34px;
+  padding: 28px 20px 36px;
   text-align: center;
-  color: #8a8a8a;
-  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 13.5px;
 }
 
 /* ─────────────── Toast ─────────────── */
@@ -300,13 +324,15 @@ main {
   bottom: 30px;
   z-index: 200;
   transform: translateX(-50%) translateY(16px);
-  background: #121212;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14.5px;
-  padding: 12px 22px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 11px 24px;
   border-radius: 999px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 5px 0 var(--ink);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.22s ease, transform 0.22s ease;
@@ -322,21 +348,21 @@ main {
 /* ─────────────── Duyarlı düzen ─────────────── */
 
 @media (max-width: 880px) {
-  .games-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  main { padding: 24px 14px 44px; }
+  .games-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 18px; }
+  main { padding: 30px 16px 48px; }
 
-  .card-top { padding: 26px 10px 20px; gap: 13px; }
-  .card-body { padding: 18px 12px 22px; }
-  .btn { height: 44px; font-size: 15px; }
+  .game-card { padding: 22px 12px 20px; gap: 12px; box-shadow: 5px 5px 0 var(--ink); }
+  .game-card:hover { box-shadow: 8px 10px 0 var(--ink); }
+  .btn { height: 46px; font-size: 17px; }
 }
 
 @media (max-width: 360px) {
-  .games-grid { gap: 12px; }
-  .card-name { font-size: 17px; }
+  .games-grid { gap: 16px 12px; }
+  .card-name { font-size: 19px; }
 }
 
 /* Hareket azaltma tercihi */
 @media (prefers-reduced-motion: reduce) {
   .game-card, .btn, .drawer, .overlay, .toast { transition: none; }
-  .game-card:hover { transform: none; }
+  .game-card, .game-card:hover { transform: none; }
 }
