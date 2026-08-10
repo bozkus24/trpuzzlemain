@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrPuzzle — Oyunlar</title>
+  <meta name="description" content="trpuzzle.com — Harfle, Harf500, Petek, Bağla, Kesme ve Şehirle: günlük Türkçe bulmaca oyunları tek sayfada.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ======================= ÜST BAR ======================= -->
+  <header class="site-header">
+    <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false" aria-controls="drawer">
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <a class="brand" href="./">
+      <!-- Optimize edilmiş logo (orijinal: kök dizindeki logo.png) -->
+      <img class="brand-logo" src="assets/logo.png" alt="">
+      <span class="brand-text">TrPuzzle</span>
+    </a>
+  </header>
+
+  <!-- ======================= YAN MENÜ ======================= -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Oyun menüsü">
+    <div class="drawer-header">
+      <span class="drawer-title">Oyunlar</span>
+      <button class="drawer-close" id="drawerClose" aria-label="Menüyü kapat">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="#" class="drawer-link" data-game="Harfle"><span class="swatch" style="background:#e3e3e1"></span>Harfle</a>
+      <a href="#" class="drawer-link" data-game="Harf500"><span class="swatch" style="background:#dba8d8"></span>Harf500</a>
+      <a href="#" class="drawer-link" data-game="Petek"><span class="swatch" style="background:#f7da21"></span>Petek</a>
+      <a href="#" class="drawer-link" data-game="Bağla"><span class="swatch" style="background:#b4a8ff"></span>Bağla</a>
+      <a href="#" class="drawer-link" data-game="Kesme"><span class="swatch" style="background:#fc716b"></span>Kesme</a>
+      <a href="#" class="drawer-link" data-game="Şehirle"><span class="swatch" style="background:#b5dfd4"></span>Şehirle</a>
+    </nav>
+  </aside>
+
+  <!-- ======================= İÇERİK ======================= -->
+  <main>
+    <h1 class="page-title">Oyunlar</h1>
+    <p class="page-subtitle">Her gün yeni bulmacalar seni bekliyor.</p>
+
+    <section class="games-grid">
+
+      <!-- ═══ HARFLE ═══ -->
+      <article class="game-card">
+        <div class="card-top" style="background:#e3e3e1">
+          <!-- LOGO: Harfle logosu hazır olunca bu SVG'yi <img src="assets/harfle.svg" alt=""> ile değiştir -->
+          <div class="card-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <g stroke="#121212" stroke-width="4" stroke-linejoin="round">
+                <rect x="10" y="10" width="24" height="24" rx="4" fill="#6aaa64"/>
+                <rect x="38" y="10" width="24" height="24" rx="4" fill="#fff"/>
+                <rect x="66" y="10" width="24" height="24" rx="4" fill="#fff"/>
+                <rect x="10" y="38" width="24" height="24" rx="4" fill="#fff"/>
+                <rect x="38" y="38" width="24" height="24" rx="4" fill="#c9b458"/>
+                <rect x="66" y="38" width="24" height="24" rx="4" fill="#fff"/>
+                <rect x="10" y="66" width="24" height="24" rx="4" fill="#fff"/>
+                <rect x="38" y="66" width="24" height="24" rx="4" fill="#fff"/>
+                <rect x="66" y="66" width="24" height="24" rx="4" fill="#6aaa64"/>
+              </g>
+            </svg>
+          </div>
+          <h2 class="card-name">Harfle</h2>
+        </div>
+        <div class="card-body">
+          <a href="#" class="btn btn-play" data-game="Harfle">Oyna</a>
+        </div>
+      </article>
+
+      <!-- ═══ HARF500 ═══ -->
+      <article class="game-card">
+        <div class="card-top" style="background:#dba8d8">
+          <!-- LOGO: Harf500 logosu hazır olunca bu SVG'yi <img src="assets/harf500.svg" alt=""> ile değiştir -->
+          <div class="card-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <rect x="14" y="26" width="72" height="48" rx="9" fill="#fff" stroke="#121212" stroke-width="4.5" stroke-linejoin="round"/>
+              <text x="50" y="60" text-anchor="middle" font-size="27" font-weight="800" fill="#121212" font-family="'Roboto Slab', Georgia, serif">500</text>
+            </svg>
+          </div>
+          <h2 class="card-name">Harf500</h2>
+        </div>
+        <div class="card-body">
+          <a href="#" class="btn btn-play" data-game="Harf500">Oyna</a>
+        </div>
+      </article>
+
+      <!-- ═══ PETEK ═══ -->
+      <article class="game-card">
+        <div class="card-top" style="background:#f7da21">
+          <!-- LOGO: Petek logosu hazır olunca bu SVG'yi <img src="assets/petek.svg" alt=""> ile değiştir -->
+          <div class="card-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <defs>
+                <path id="hexPetek" d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"/>
+              </defs>
+              <g fill="#fff" stroke="#121212" stroke-width="4" stroke-linejoin="round">
+                <use href="#hexPetek" transform="translate(50,30)"/>
+                <use href="#hexPetek" transform="translate(34,58)"/>
+                <use href="#hexPetek" transform="translate(66,58)"/>
+              </g>
+            </svg>
+          </div>
+          <h2 class="card-name">Petek</h2>
+        </div>
+        <div class="card-body">
+          <a href="#" class="btn btn-play" data-game="Petek">Oyna</a>
+        </div>
+      </article>
+
+      <!-- ═══ BAĞLA ═══ -->
+      <article class="game-card">
+        <div class="card-top" style="background:#b4a8ff">
+          <!-- LOGO: Bağla logosu hazır olunca bu SVG'yi <img src="assets/bagla.svg" alt=""> ile değiştir -->
+          <div class="card-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <g stroke="#121212" stroke-width="4">
+                <path d="M30 30 L70 26 M30 30 L26 70 M70 26 L72 72 M26 70 L72 72 M30 30 L72 72" fill="none"/>
+              </g>
+              <g fill="#fff" stroke="#121212" stroke-width="4">
+                <circle cx="30" cy="30" r="10"/>
+                <circle cx="70" cy="26" r="10"/>
+                <circle cx="26" cy="70" r="10"/>
+                <circle cx="72" cy="72" r="10"/>
+              </g>
+            </svg>
+          </div>
+          <h2 class="card-name">Bağla</h2>
+        </div>
+        <div class="card-body">
+          <a href="#" class="btn btn-play" data-game="Bağla">Oyna</a>
+        </div>
+      </article>
+
+      <!-- ═══ KESME ═══ -->
+      <article class="game-card">
+        <div class="card-top" style="background:#fc716b">
+          <!-- LOGO: Kesme logosu hazır olunca bu SVG'yi <img src="assets/kesme.svg" alt=""> ile değiştir -->
+          <div class="card-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <rect x="18" y="18" width="64" height="64" rx="7" fill="#fff" stroke="#121212" stroke-width="4.5" stroke-linejoin="round"/>
+              <polygon points="78,26 78,78 26,78" fill="#e12a2a"/>
+              <path d="M24 76 L76 24" stroke="#121212" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="card-name">Kesme</h2>
+        </div>
+        <div class="card-body">
+          <a href="#" class="btn btn-play" data-game="Kesme">Oyna</a>
+        </div>
+      </article>
+
+      <!-- ═══ ŞEHİRLE ═══ -->
+      <article class="game-card">
+        <div class="card-top" style="background:#b5dfd4">
+          <!-- LOGO: Şehirle logosu hazır olunca bu SVG'yi <img src="assets/sehirle.svg" alt=""> ile değiştir -->
+          <div class="card-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <g fill="#fff" stroke="#121212" stroke-width="4" stroke-linejoin="round">
+                <rect x="18" y="44" width="20" height="38"/>
+                <rect x="42" y="26" width="22" height="56"/>
+                <rect x="68" y="52" width="16" height="30"/>
+              </g>
+              <g fill="#121212">
+                <rect x="47" y="34" width="5" height="5"/>
+                <rect x="56" y="34" width="5" height="5"/>
+                <rect x="47" y="45" width="5" height="5"/>
+                <rect x="56" y="45" width="5" height="5"/>
+                <rect x="47" y="56" width="5" height="5"/>
+                <rect x="23" y="52" width="4.5" height="4.5"/>
+                <rect x="30" y="52" width="4.5" height="4.5"/>
+                <rect x="23" y="62" width="4.5" height="4.5"/>
+                <rect x="72" y="59" width="4" height="4"/>
+                <rect x="72" y="68" width="4" height="4"/>
+              </g>
+              <path d="M12 82 H88" stroke="#121212" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h2 class="card-name">Şehirle</h2>
+        </div>
+        <div class="card-body">
+          <a href="#" class="btn btn-play" data-game="Şehirle">Oyna</a>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 trpuzzle.com · Tüm oyunlar çok yakında yayında!</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
