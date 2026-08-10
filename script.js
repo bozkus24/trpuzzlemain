@@ -32,6 +32,25 @@
     if (e.key === "Escape") closeDrawer();
   });
 
+  /* ---------- Tema düğmesi ----------
+     İlk tema body başındaki satır içi script'te uygulanır;
+     burada yalnızca geçiş ve kayıt yapılır. */
+  const themeBtn = document.getElementById("themeBtn");
+
+  function applyThemeLabel() {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    themeBtn.setAttribute("aria-label", isLight ? "Koyu moda geç" : "Aydınlık moda geç");
+  }
+
+  themeBtn.addEventListener("click", function () {
+    const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("trpuzzle-theme", next); } catch (e) {}
+    applyThemeLabel();
+  });
+
+  applyThemeLabel();
+
   /* ---------- Toast ---------- */
   const toast = document.getElementById("toast");
   let toastTimer = null;

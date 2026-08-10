@@ -6,12 +6,25 @@
   <title>TrPuzzle — Oyunlar</title>
   <meta name="description" content="trpuzzle.com — Harfle, Harf500, Petek, Bağla, Kesme ve Şehirle: günlük Türkçe bulmaca oyunları tek sayfada.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta name="theme-color" content="#14161b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <script>
+    /* Tema, içerik boyanmadan önce uygulanır (parlama olmasın diye body başında) */
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("trpuzzle-theme"); } catch (e) {}
+      var theme = saved === "light" || saved === "dark"
+        ? saved
+        : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
 
   <!-- ======================= ÜST BAR ======================= -->
   <header class="site-header">
@@ -25,6 +38,18 @@
       <img class="brand-logo" src="assets/logo.png" alt="">
       <span class="brand-text">TrPuzzle</span>
     </a>
+    <button class="theme-btn" id="themeBtn" aria-label="Aydınlık moda geç">
+      <!-- Koyu temada güneş (aydınlığa geç), açık temada ay görünür -->
+      <svg class="icon-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+        <path d="M20 14.6A8.6 8.6 0 0 1 9.4 4a8.6 8.6 0 1 0 10.6 10.6Z"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </header>
 
   <!-- ======================= YAN MENÜ ======================= -->
@@ -57,7 +82,7 @@
     <section class="games-grid">
 
       <!-- ═══ HARFLE ═══ -->
-      <article class="game-card" style="--acc:#79b86d">
+      <article class="game-card" style="--acc-dark:#79b86d; --acc-lite:#3f7a38">
         <span class="chip">Yakında</span>
         <!-- LOGO: Harfle logosu hazır olunca bu SVG'yi <img src="assets/harfle.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
@@ -82,7 +107,7 @@
       </article>
 
       <!-- ═══ HARF500 ═══ -->
-      <article class="game-card" style="--acc:#e08bd4">
+      <article class="game-card" style="--acc-dark:#e08bd4; --acc-lite:#a8479a">
         <span class="chip">Yakında</span>
         <!-- LOGO: Harf500 logosu hazır olunca bu SVG'yi <img src="assets/harf500.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
@@ -98,7 +123,7 @@
       </article>
 
       <!-- ═══ PETEK ═══ -->
-      <article class="game-card" style="--acc:#f0c34e">
+      <article class="game-card" style="--acc-dark:#f0c34e; --acc-lite:#a97d10">
         <span class="chip">Yakında</span>
         <!-- LOGO: Petek logosu hazır olunca bu SVG'yi <img src="assets/petek.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
@@ -120,7 +145,7 @@
       </article>
 
       <!-- ═══ BAĞLA ═══ -->
-      <article class="game-card" style="--acc:#9d8fff">
+      <article class="game-card" style="--acc-dark:#9d8fff; --acc-lite:#5f4fd1">
         <span class="chip">Yakında</span>
         <!-- LOGO: Bağla logosu hazır olunca bu SVG'yi <img src="assets/bagla.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
@@ -143,7 +168,7 @@
       </article>
 
       <!-- ═══ KESME ═══ -->
-      <article class="game-card" style="--acc:#ff7a6e">
+      <article class="game-card" style="--acc-dark:#ff7a6e; --acc-lite:#cc4437">
         <span class="chip">Yakında</span>
         <!-- LOGO: Kesme logosu hazır olunca bu SVG'yi <img src="assets/kesme.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
@@ -160,7 +185,7 @@
       </article>
 
       <!-- ═══ ŞEHİRLE ═══ -->
-      <article class="game-card" style="--acc:#63cdb2">
+      <article class="game-card" style="--acc-dark:#63cdb2; --acc-lite:#1f8a6d">
         <span class="chip">Yakında</span>
         <!-- LOGO: Şehirle logosu hazır olunca bu SVG'yi <img src="assets/sehirle.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
