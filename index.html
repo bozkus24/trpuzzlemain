@@ -111,9 +111,21 @@
         <span class="chip">Yakında</span>
         <!-- LOGO: Harf500 logosu hazır olunca bu SVG'yi <img src="assets/harf500.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
+          <!-- 2x2 karo: H-5-0-0 (WORD500 mantığı, site paletine uyarlanmış) -->
           <svg viewBox="0 0 100 100">
-            <rect x="12" y="25" width="76" height="50" rx="10" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
-            <text x="50" y="62" text-anchor="middle" font-size="30" font-weight="700" fill="currentColor" font-family="'Fraunces', Georgia, serif">500</text>
+            <g font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="27" text-anchor="middle">
+              <rect x="7" y="7" width="40" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="4"/>
+              <text x="27" y="37" fill="currentColor">H</text>
+
+              <rect x="53" y="7" width="40" height="40" rx="8" fill="currentColor"/>
+              <text x="73" y="37" style="fill: var(--surface)">5</text>
+
+              <rect x="7" y="53" width="40" height="40" rx="8" fill="currentColor" fill-opacity="0.38"/>
+              <text x="27" y="83" fill="currentColor">0</text>
+
+              <rect x="53" y="53" width="40" height="40" rx="8" fill="currentColor"/>
+              <text x="73" y="83" style="fill: var(--surface)">0</text>
+            </g>
           </svg>
         </div>
         <h2 class="card-name">Harf500</h2>
