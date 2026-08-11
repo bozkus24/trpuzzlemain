@@ -65,11 +65,11 @@
     </div>
     <nav class="drawer-nav">
       <a href="#" class="drawer-link" data-game="Harfle"><span class="swatch" style="background:#79b86d"></span>Harfle</a>
-      <a href="#" class="drawer-link" data-game="Harf500"><span class="swatch" style="background:#e08bd4"></span>Harf500</a>
+      <a href="#" class="drawer-link" data-game="Harf500"><span class="swatch" style="background:#63cdb2"></span>Harf500</a>
       <a href="#" class="drawer-link" data-game="Petek"><span class="swatch" style="background:#f0c34e"></span>Petek</a>
       <a href="#" class="drawer-link" data-game="Bağla"><span class="swatch" style="background:#9d8fff"></span>Bağla</a>
       <a href="#" class="drawer-link" data-game="Kesme"><span class="swatch" style="background:#ff7a6e"></span>Kesme</a>
-      <a href="#" class="drawer-link" data-game="Şehirle"><span class="swatch" style="background:#63cdb2"></span>Şehirle</a>
+      <a href="#" class="drawer-link" data-game="Şehirle"><span class="swatch" style="background:#e08bd4"></span>Şehirle</a>
     </nav>
   </aside>
 
@@ -107,24 +107,30 @@
       </article>
 
       <!-- ═══ HARF500 ═══ -->
-      <article class="game-card" style="--acc-dark:#e08bd4; --acc-lite:#a8479a">
+      <article class="game-card" style="--acc-dark:#63cdb2; --acc-lite:#1f8a6d">
         <span class="chip">Yakında</span>
         <!-- LOGO: Harf500 logosu hazır olunca bu SVG'yi <img src="assets/harf500.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
-          <!-- 2x2 karo: H-5-0-0 (WORD500 mantığı, site paletine uyarlanmış) -->
+          <!-- Bitişik 2x2 karo bloğu: H-5-0-0. Her hücre kenarlıklı,
+               dolgu tonları farklı (boş / dolu / soluk / orta). -->
           <svg viewBox="0 0 100 100">
-            <g font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="27" text-anchor="middle">
-              <rect x="7" y="7" width="40" height="40" rx="8" fill="none" stroke="currentColor" stroke-width="4"/>
-              <text x="27" y="37" fill="currentColor">H</text>
-
-              <rect x="53" y="7" width="40" height="40" rx="8" fill="currentColor"/>
-              <text x="73" y="37" style="fill: var(--surface)">5</text>
-
-              <rect x="7" y="53" width="40" height="40" rx="8" fill="currentColor" fill-opacity="0.38"/>
-              <text x="27" y="83" fill="currentColor">0</text>
-
-              <rect x="53" y="53" width="40" height="40" rx="8" fill="currentColor"/>
-              <text x="73" y="83" style="fill: var(--surface)">0</text>
+            <defs>
+              <clipPath id="h500clip"><rect x="8" y="8" width="84" height="84" rx="6"/></clipPath>
+            </defs>
+            <g clip-path="url(#h500clip)">
+              <rect x="50" y="8" width="42" height="42" fill="currentColor"/>
+              <rect x="8" y="50" width="42" height="42" fill="currentColor" fill-opacity="0.32"/>
+              <rect x="50" y="50" width="42" height="42" fill="currentColor" fill-opacity="0.62"/>
+            </g>
+            <g stroke="currentColor" stroke-width="4.5" fill="none">
+              <rect x="8" y="8" width="84" height="84" rx="6"/>
+              <path d="M50 8 V92 M8 50 H92"/>
+            </g>
+            <g font-family="'Fraunces', Georgia, serif" font-weight="700" font-size="28" text-anchor="middle">
+              <text x="29" y="39" fill="currentColor">H</text>
+              <text x="71" y="39" style="fill: var(--surface)">5</text>
+              <text x="29" y="81" fill="currentColor">0</text>
+              <text x="71" y="81" style="fill: var(--surface)">0</text>
             </g>
           </svg>
         </div>
@@ -207,7 +213,7 @@
       </article>
 
       <!-- ═══ ŞEHİRLE ═══ -->
-      <article class="game-card" style="--acc-dark:#63cdb2; --acc-lite:#1f8a6d">
+      <article class="game-card" style="--acc-dark:#e08bd4; --acc-lite:#a8479a">
         <span class="chip">Yakında</span>
         <!-- LOGO: Şehirle logosu hazır olunca bu SVG'yi <img src="assets/sehirle.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
