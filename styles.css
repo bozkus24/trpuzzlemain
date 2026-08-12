@@ -285,20 +285,6 @@ main {
   box-shadow: var(--card-shadow);
 }
 
-.chip {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 4px 10px;
-}
-
 .card-icon {
   display: flex;
   align-items: center;
@@ -419,7 +405,6 @@ main {
   .card-icon { width: 58px; height: 58px; border-radius: 12px; }
   .card-icon svg, .card-icon img { width: 36px; height: 36px; }
   .card-name { font-size: 20px; }
-  .chip { top: 14px; right: 14px; }
   .btn { height: 42px; font-size: 14px; }
 }
 
@@ -433,8 +418,6 @@ main {
     gap: 14px;
     padding: 14px 14px 14px 16px;
   }
-
-  .chip { display: none; }
 
   .card-icon {
     width: 52px;

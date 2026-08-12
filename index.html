@@ -83,20 +83,30 @@
 
       <!-- ═══ HARFLE ═══ -->
       <article class="game-card" style="--acc-dark:#79b86d; --acc-lite:#3f7a38">
-        <span class="chip">Yakında</span>
         <!-- LOGO: Harfle logosu hazır olunca bu SVG'yi <img src="assets/harfle.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
+          <!-- Wordle tahmin tahtası: 5 sütun x 3 satır. Boş (kontur),
+               yerinde (soluk), doğru (dolu). Alt satır tümü çözülmüş. -->
           <svg viewBox="0 0 100 100">
-            <g stroke="currentColor" stroke-width="5" stroke-linejoin="round">
-              <rect x="10" y="10" width="24" height="24" rx="4" fill="currentColor"/>
-              <rect x="38" y="10" width="24" height="24" rx="4" fill="none"/>
-              <rect x="66" y="10" width="24" height="24" rx="4" fill="none"/>
-              <rect x="10" y="38" width="24" height="24" rx="4" fill="none"/>
-              <rect x="38" y="38" width="24" height="24" rx="4" fill="currentColor" fill-opacity="0.4"/>
-              <rect x="66" y="38" width="24" height="24" rx="4" fill="none"/>
-              <rect x="10" y="66" width="24" height="24" rx="4" fill="none"/>
-              <rect x="38" y="66" width="24" height="24" rx="4" fill="none"/>
-              <rect x="66" y="66" width="24" height="24" rx="4" fill="currentColor"/>
+            <g stroke="currentColor" stroke-width="3">
+              <!-- 1. tahmin -->
+              <rect x="5.5"  y="24"   width="15" height="15" rx="2.5" fill="none"/>
+              <rect x="24"   y="24"   width="15" height="15" rx="2.5" fill="currentColor" fill-opacity="0.4"/>
+              <rect x="42.5" y="24"   width="15" height="15" rx="2.5" fill="none"/>
+              <rect x="61"   y="24"   width="15" height="15" rx="2.5" fill="none"/>
+              <rect x="79.5" y="24"   width="15" height="15" rx="2.5" fill="currentColor"/>
+              <!-- 2. tahmin -->
+              <rect x="5.5"  y="42.5" width="15" height="15" rx="2.5" fill="currentColor" fill-opacity="0.4"/>
+              <rect x="24"   y="42.5" width="15" height="15" rx="2.5" fill="none"/>
+              <rect x="42.5" y="42.5" width="15" height="15" rx="2.5" fill="currentColor"/>
+              <rect x="61"   y="42.5" width="15" height="15" rx="2.5" fill="none"/>
+              <rect x="79.5" y="42.5" width="15" height="15" rx="2.5" fill="currentColor" fill-opacity="0.4"/>
+              <!-- Çözüldü -->
+              <rect x="5.5"  y="61"   width="15" height="15" rx="2.5" fill="currentColor"/>
+              <rect x="24"   y="61"   width="15" height="15" rx="2.5" fill="currentColor"/>
+              <rect x="42.5" y="61"   width="15" height="15" rx="2.5" fill="currentColor"/>
+              <rect x="61"   y="61"   width="15" height="15" rx="2.5" fill="currentColor"/>
+              <rect x="79.5" y="61"   width="15" height="15" rx="2.5" fill="currentColor"/>
             </g>
           </svg>
         </div>
@@ -108,7 +118,6 @@
 
       <!-- ═══ HARF500 ═══ -->
       <article class="game-card" style="--acc-dark:#63cdb2; --acc-lite:#1f8a6d">
-        <span class="chip">Yakında</span>
         <!-- LOGO: Harf500 logosu hazır olunca bu SVG'yi <img src="assets/harf500.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
           <!-- Bitişik 2x2 karo bloğu: H-5-0-0. Her hücre kenarlıklı,
@@ -142,17 +151,37 @@
 
       <!-- ═══ PETEK ═══ -->
       <article class="game-card" style="--acc-dark:#f0c34e; --acc-lite:#a97d10">
-        <span class="chip">Yakında</span>
         <!-- LOGO: Petek logosu hazır olunca bu SVG'yi <img src="assets/petek.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
+          <!-- Waffle kafesi: 5x5 ızgara, dört köşe deliği; dama tonları -->
           <svg viewBox="0 0 100 100">
-            <defs>
-              <path id="hexPetek" d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"/>
-            </defs>
-            <g fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round">
-              <use href="#hexPetek" transform="translate(50,30)" fill="currentColor" fill-opacity="0.4"/>
-              <use href="#hexPetek" transform="translate(34,58)"/>
-              <use href="#hexPetek" transform="translate(66,58)"/>
+            <g stroke="currentColor" stroke-width="2.4">
+              <!-- 1. satır -->
+              <rect x="8"    y="8"    width="14" height="14" rx="2.5" fill="currentColor"/>
+              <rect x="25.5" y="8"    width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="43"   y="8"    width="14" height="14" rx="2.5" fill="currentColor"/>
+              <rect x="60.5" y="8"    width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="78"   y="8"    width="14" height="14" rx="2.5" fill="currentColor"/>
+              <!-- 2. satır (c1, c3 delik) -->
+              <rect x="8"    y="25.5" width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="43"   y="25.5" width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="78"   y="25.5" width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <!-- 3. satır -->
+              <rect x="8"    y="43"   width="14" height="14" rx="2.5" fill="currentColor"/>
+              <rect x="25.5" y="43"   width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="43"   y="43"   width="14" height="14" rx="2.5" fill="currentColor"/>
+              <rect x="60.5" y="43"   width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="78"   y="43"   width="14" height="14" rx="2.5" fill="currentColor"/>
+              <!-- 4. satır (c1, c3 delik) -->
+              <rect x="8"    y="60.5" width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="43"   y="60.5" width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="78"   y="60.5" width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <!-- 5. satır -->
+              <rect x="8"    y="78"   width="14" height="14" rx="2.5" fill="currentColor"/>
+              <rect x="25.5" y="78"   width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="43"   y="78"   width="14" height="14" rx="2.5" fill="currentColor"/>
+              <rect x="60.5" y="78"   width="14" height="14" rx="2.5" fill="currentColor" fill-opacity="0.42"/>
+              <rect x="78"   y="78"   width="14" height="14" rx="2.5" fill="currentColor"/>
             </g>
           </svg>
         </div>
@@ -164,28 +193,22 @@
 
       <!-- ═══ BAĞLA ═══ -->
       <article class="game-card" style="--acc-dark:#9d8fff; --acc-lite:#5f4fd1">
-        <span class="chip">Yakında</span>
         <!-- LOGO: Bağla logosu hazır olunca bu SVG'yi <img src="assets/bagla.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
-          <!-- 4x4 ızgara, köşegen (sol üst -> sağ alt) dolu; yatayda kareden bir tık geniş -->
+          <!-- Connections: çözülmüş 4x4 tahta; her satır bir grup (dört ton) -->
           <svg viewBox="0 0 100 100">
-            <g fill="currentColor">
-              <rect x="6"    y="12"   width="20.5" height="17.5" rx="3.5"/>
-              <rect x="28.5" y="12"   width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="51"   y="12"   width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="73.5" y="12"   width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="6"    y="31.5" width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="28.5" y="31.5" width="20.5" height="17.5" rx="3.5"/>
-              <rect x="51"   y="31.5" width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="73.5" y="31.5" width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="6"    y="51"   width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="28.5" y="51"   width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="51"   y="51"   width="20.5" height="17.5" rx="3.5"/>
-              <rect x="73.5" y="51"   width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="6"    y="70.5" width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="28.5" y="70.5" width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="51"   y="70.5" width="20.5" height="17.5" rx="3.5" fill-opacity="0.22"/>
-              <rect x="73.5" y="70.5" width="20.5" height="17.5" rx="3.5"/>
+            <defs>
+              <clipPath id="baglaClip"><rect x="12" y="12" width="76" height="76" rx="5"/></clipPath>
+            </defs>
+            <g clip-path="url(#baglaClip)" fill="currentColor">
+              <rect x="12" y="12" width="76" height="19"/>
+              <rect x="12" y="31" width="76" height="19" fill-opacity="0.7"/>
+              <rect x="12" y="50" width="76" height="19" fill-opacity="0.45"/>
+              <rect x="12" y="69" width="76" height="19" fill-opacity="0.24"/>
+            </g>
+            <g stroke="currentColor" stroke-width="4" fill="none">
+              <rect x="12" y="12" width="76" height="76" rx="5"/>
+              <path d="M31 12V88 M50 12V88 M69 12V88 M12 31H88 M12 50H88 M12 69H88"/>
             </g>
           </svg>
         </div>
@@ -197,7 +220,6 @@
 
       <!-- ═══ KESME ═══ -->
       <article class="game-card" style="--acc-dark:#ff7a6e; --acc-lite:#cc4437">
-        <span class="chip">Yakında</span>
         <!-- LOGO: Kesme logosu hazır olunca bu SVG'yi <img src="assets/kesme.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 100 100">
@@ -214,7 +236,6 @@
 
       <!-- ═══ ŞEHİRLE ═══ -->
       <article class="game-card" style="--acc-dark:#e08bd4; --acc-lite:#a8479a">
-        <span class="chip">Yakında</span>
         <!-- LOGO: Şehirle logosu hazır olunca bu SVG'yi <img src="assets/sehirle.svg" alt=""> ile değiştir -->
         <div class="card-icon" aria-hidden="true">
           <svg viewBox="0 0 100 100">
