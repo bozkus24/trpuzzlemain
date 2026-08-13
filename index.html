@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrPuzzle — Oyunlar</title>
-  <meta name="description" content="trpuzzle.com — Harfle, Harf500, Baklava, Bağla, Kesme ve Şehirle: günlük Türkçe bulmaca oyunları tek sayfada.">
+  <meta name="description" content="trpuzzle.com — Harfle, Harf500, Baklava, Bağla, Kesme, Şehirle, Tilkile ve Arala: günlük Türkçe bulmaca oyunları tek sayfada.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <meta name="theme-color" content="#14161b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,6 +70,8 @@
       <a href="https://bagla.trpuzzle.com" class="drawer-link" data-game="Bağla" data-url="https://bagla.trpuzzle.com"><span class="swatch" style="background:#9d8fff"></span>Bağla</a>
       <a href="https://kesme.trpuzzle.com" class="drawer-link" data-game="Kesme" data-url="https://kesme.trpuzzle.com"><span class="swatch" style="background:#ff7a6e"></span>Kesme</a>
       <a href="https://sehirle.trpuzzle.com" class="drawer-link" data-game="Şehirle" data-url="https://sehirle.trpuzzle.com"><span class="swatch" style="background:#e08bd4"></span>Şehirle</a>
+      <a href="https://tilkile.trpuzzle.com" class="drawer-link" data-game="Tilkile" data-url="https://tilkile.trpuzzle.com"><span class="swatch" style="background:#ff9f45"></span>Tilkile</a>
+      <a href="https://arala.trpuzzle.com" class="drawer-link" data-game="Arala" data-url="https://arala.trpuzzle.com"><span class="swatch" style="background:#6fb5e8"></span>Arala</a>
     </nav>
   </aside>
 
@@ -77,7 +79,7 @@
   <main>
     <p class="page-eyebrow">Günlük Türkçe bulmacalar</p>
     <h1 class="page-title">Bugün hangisiyle başlıyorsun?</h1>
-    <p class="page-subtitle">Altı oyun, her gün yeni bulmacalarla burada. Kahveni al, rahat bir köşe bul.</p>
+    <p class="page-subtitle">Sekiz oyun, her gün yeni bulmacalarla burada. Kahveni al, rahat bir köşe bul.</p>
 
     <section class="games-grid">
 
@@ -259,11 +261,51 @@
         </div>
       </article>
 
+      <!-- ═══ TİLKİLE ═══ -->
+      <article class="game-card" style="--acc-dark:#ff9f45; --acc-lite:#b45c10">
+        <!-- LOGO: Tilkile logosu hazır olunca bu SVG'yi <img src="assets/tilkile.svg" alt=""> ile değiştir -->
+        <div class="card-icon" aria-hidden="true">
+          <!-- Geometrik tilki: iki kulak + uçurtma biçimli yüz, oyma gözler -->
+          <svg viewBox="0 0 100 100">
+            <path d="M16 38 L20 8 L44 25 Z" fill="currentColor"/>
+            <path d="M84 38 L80 8 L56 25 Z" fill="currentColor"/>
+            <path d="M16 38 L50 24 L84 38 L50 90 Z" fill="currentColor"/>
+            <circle cx="37" cy="45" r="4.5" style="fill: var(--surface)"/>
+            <circle cx="63" cy="45" r="4.5" style="fill: var(--surface)"/>
+          </svg>
+        </div>
+        <h2 class="card-name">Tilkile</h2>
+        <div class="card-foot">
+          <a href="https://tilkile.trpuzzle.com" class="btn btn-play" data-game="Tilkile" data-url="https://tilkile.trpuzzle.com">Oyna</a>
+        </div>
+      </article>
+
+      <!-- ═══ ARALA ═══ -->
+      <article class="game-card" style="--acc-dark:#6fb5e8; --acc-lite:#2b6ea8">
+        <!-- LOGO: Arala logosu hazır olunca bu SVG'yi <img src="assets/arala.svg" alt=""> ile değiştir -->
+        <div class="card-icon" aria-hidden="true">
+          <!-- Aradaki kelime: üst/alt dolu barlar, ortada kesikli bilinmeyen,
+               içe bakan oklar aralığı daraltmayı anlatır -->
+          <svg viewBox="0 0 100 100">
+            <rect x="10" y="10" width="80" height="16" rx="4" fill="currentColor"/>
+            <path d="M43 32 L50 40 L57 32 Z" fill="currentColor" fill-opacity="0.55"/>
+            <rect x="10" y="42" width="80" height="16" rx="4" fill="none"
+                  stroke="currentColor" stroke-width="3.5" stroke-dasharray="7 5"/>
+            <path d="M43 68 L50 60 L57 68 Z" fill="currentColor" fill-opacity="0.55"/>
+            <rect x="10" y="74" width="80" height="16" rx="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <h2 class="card-name">Arala</h2>
+        <div class="card-foot">
+          <a href="https://arala.trpuzzle.com" class="btn btn-play" data-game="Arala" data-url="https://arala.trpuzzle.com">Oyna</a>
+        </div>
+      </article>
+
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 trpuzzle.com · Tüm oyunlar çok yakında yayında!</p>
+    <p>© 2026 trpuzzle.com · Her gün yeni bulmacalar.</p>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

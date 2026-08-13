@@ -1,6 +1,17 @@
 # trpuzzlemain
 
-**[trpuzzle.com](https://trpuzzle.com)** — Türkçe günlük bulmaca oyunlarının ortak anasayfası. **Harfle**, **Harf500**, **Baklava**, **Bağla**, **Kesme** ve **Şehirle** oyunlarına tek sayfadan erişim sağlar.
+**[trpuzzle.com](https://trpuzzle.com)** — Türkçe günlük bulmaca oyunlarının ortak anasayfası. **Harfle**, **Harf500**, **Baklava**, **Bağla**, **Kesme**, **Şehirle**, **Tilkile** ve **Arala** oyunlarına tek sayfadan erişim sağlar.
+
+| Oyun | Repo | Alt alan adı |
+|---|---|---|
+| Harfle | `trpuzzle5` | harfle.trpuzzle.com |
+| Harf500 | `word500turkce` | harf500.trpuzzle.com |
+| Baklava | `trpuzzle4` | baklava.trpuzzle.com |
+| Bağla | `trpuzzle1` | bagla.trpuzzle.com |
+| Kesme | `trpuzzle2` | kesme.trpuzzle.com |
+| Şehirle | `trpuzzle3` | sehirle.trpuzzle.com |
+| Tilkile | `trpuzzle6` | tilkile.trpuzzle.com |
+| Arala | `trpuzzle7` | arala.trpuzzle.com |
 
 Tamamen statik bir sitedir (HTML + CSS + JS) — derleme adımı yoktur; GitHub Pages, Netlify veya herhangi bir statik hosting üzerinde doğrudan yayınlanabilir.
 
