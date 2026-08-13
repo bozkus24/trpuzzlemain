@@ -1,9 +1,98 @@
 # Netlify yapılandırması — TrPuzzle anasayfa
 # Statik site; derleme adımı yok, kök dizin olduğu gibi yayımlanır.
+#
+# ÖNEMLİ: Aşağıdaki proxy kuralları, her oyunun Netlify sitesinin TAM OLARAK
+# şu adlarla adlandırılmasını bekler (Site settings -> Change site name):
+#   trpuzzle-harfle, trpuzzle-harf500, trpuzzle-baklava, trpuzzle-bagla,
+#   trpuzzle-kesme, trpuzzle-sehirle, trpuzzle-tilkile, trpuzzle-arala
+# Böylece trpuzzle.com/harfle gibi yollar ilgili oyuna vekâlet edilir
+# (adres çubuğu trpuzzle.com'da kalır).
 
 [build]
   publish = "."
   command = ""
+
+# ── Oyun yolları -> oyun siteleri (200 = proxy/rewrite) ──
+
+[[redirects]]
+  from = "/harfle"
+  to = "https://trpuzzle-harfle.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/harfle/*"
+  to = "https://trpuzzle-harfle.netlify.app/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/harf500"
+  to = "https://trpuzzle-harf500.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/harf500/*"
+  to = "https://trpuzzle-harf500.netlify.app/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/baklava"
+  to = "https://trpuzzle-baklava.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/baklava/*"
+  to = "https://trpuzzle-baklava.netlify.app/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/bagla"
+  to = "https://trpuzzle-bagla.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/bagla/*"
+  to = "https://trpuzzle-bagla.netlify.app/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/kesme"
+  to = "https://trpuzzle-kesme.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/kesme/*"
+  to = "https://trpuzzle-kesme.netlify.app/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/sehirle"
+  to = "https://trpuzzle-sehirle.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/sehirle/*"
+  to = "https://trpuzzle-sehirle.netlify.app/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/tilkile"
+  to = "https://trpuzzle-tilkile.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/tilkile/*"
+  to = "https://trpuzzle-tilkile.netlify.app/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/arala"
+  to = "https://trpuzzle-arala.netlify.app/"
+  status = 200
+
+[[redirects]]
+  from = "/arala/*"
+  to = "https://trpuzzle-arala.netlify.app/:splat"
+  status = 200
 
 # Temel güvenlik başlıkları.
 [[headers]]

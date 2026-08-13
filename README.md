@@ -2,16 +2,20 @@
 
 **[trpuzzle.com](https://trpuzzle.com)** — Türkçe günlük bulmaca oyunlarının ortak anasayfası. **Harfle**, **Harf500**, **Baklava**, **Bağla**, **Kesme**, **Şehirle**, **Tilkile** ve **Arala** oyunlarına tek sayfadan erişim sağlar.
 
-| Oyun | Repo | Alt alan adı |
-|---|---|---|
-| Harfle | `trpuzzle5` | harfle.trpuzzle.com |
-| Harf500 | `word500turkce` | harf500.trpuzzle.com |
-| Baklava | `trpuzzle4` | baklava.trpuzzle.com |
-| Bağla | `trpuzzle1` | bagla.trpuzzle.com |
-| Kesme | `trpuzzle2` | kesme.trpuzzle.com |
-| Şehirle | `trpuzzle3` | sehirle.trpuzzle.com |
-| Tilkile | `trpuzzle6` | tilkile.trpuzzle.com |
-| Arala | `trpuzzle7` | arala.trpuzzle.com |
+| Oyun | Repo | Yol | Netlify site adı |
+|---|---|---|---|
+| Harfle | `trpuzzle5` | trpuzzle.com/harfle | `trpuzzle-harfle` |
+| Harf500 | `word500turkce` | trpuzzle.com/harf500 | `trpuzzle-harf500` |
+| Baklava | `trpuzzle4` | trpuzzle.com/baklava | `trpuzzle-baklava` |
+| Bağla | `trpuzzle1` | trpuzzle.com/bagla | `trpuzzle-bagla` |
+| Kesme | `trpuzzle2` | trpuzzle.com/kesme | `trpuzzle-kesme` |
+| Şehirle | `trpuzzle3` | trpuzzle.com/sehirle | `trpuzzle-sehirle` |
+| Tilkile | `trpuzzle6` | trpuzzle.com/tilkile | `trpuzzle-tilkile` |
+| Arala | `trpuzzle7` | trpuzzle.com/arala | `trpuzzle-arala` |
+
+Oyun yolları, anasayfa sitesinin `netlify.toml` dosyasındaki proxy kurallarıyla
+ilgili oyunun Netlify sitesine vekâlet edilir; adres çubuğu trpuzzle.com'da kalır.
+Bu yüzden her oyunun Netlify sitesi yukarıdaki **site adıyla** adlandırılmalıdır.
 
 Tamamen statik bir sitedir (HTML + CSS + JS) — derleme adımı yoktur; GitHub Pages, Netlify veya herhangi bir statik hosting üzerinde doğrudan yayınlanabilir.
 
