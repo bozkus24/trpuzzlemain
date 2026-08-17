@@ -1,24 +1,21 @@
 # Netlify yapılandırması — TrPuzzle anasayfa
 # Statik site; derleme adımı yok, kök dizin olduğu gibi yayımlanır.
 #
-# ÖNEMLİ: Aşağıdaki proxy kuralları, her oyunun Netlify sitesinin TAM OLARAK
-# şu adlarla adlandırılmasını bekler (Site settings -> Change site name):
+# ÖNEMLİ: Proxy kuralları, her oyunun Netlify sitesinin TAM OLARAK şu adlarla
+# adlandırılmasını bekler (Site settings -> Change site name):
 #   trpuzzle-harfle, trpuzzle-harf500, trpuzzle-baklava, trpuzzle-bagla,
 #   trpuzzle-kesme, trpuzzle-sehirle, trpuzzle-tilkile, trpuzzle-arala
-# Her /oyun yolu sonuna eğik çizgi eklenir (/oyun/) ve ilgili oyunun Netlify
-# sitesine vekâlet edilir. Eğik çizgi ŞART: oyunun göreli dosyaları
-# (style.css, game.js ...) /oyun/ altından çözülsün diye. Adres trpuzzle.com'da kalır.
+#
+# Yollar HER ZAMAN eğik çizgiyle biter (/oyun/) — anasayfadaki linkler öyle.
+# Yalnızca /oyun/* proxy (200) var; 301 YOK, bu yüzden yönlendirme döngüsü olamaz.
+# /oyun/ -> oyun sitesinin köküne, /oyun/style.css -> oyun sitesinin style.css'ine
+# vekâlet edilir; adres trpuzzle.com'da kalır.
 
 [build]
   publish = "."
   command = ""
 
-# ── Oyun yolları -> oyun siteleri ──
-
-[[redirects]]
-  from = "/harfle"
-  to = "/harfle/"
-  status = 301
+# ── Oyun yolları -> oyun siteleri (proxy) ──
 
 [[redirects]]
   from = "/harfle/*"
@@ -26,19 +23,9 @@
   status = 200
 
 [[redirects]]
-  from = "/harf500"
-  to = "/harf500/"
-  status = 301
-
-[[redirects]]
   from = "/harf500/*"
   to = "https://trpuzzle-harf500.netlify.app/:splat"
   status = 200
-
-[[redirects]]
-  from = "/baklava"
-  to = "/baklava/"
-  status = 301
 
 [[redirects]]
   from = "/baklava/*"
@@ -46,19 +33,9 @@
   status = 200
 
 [[redirects]]
-  from = "/bagla"
-  to = "/bagla/"
-  status = 301
-
-[[redirects]]
   from = "/bagla/*"
   to = "https://trpuzzle-bagla.netlify.app/:splat"
   status = 200
-
-[[redirects]]
-  from = "/kesme"
-  to = "/kesme/"
-  status = 301
 
 [[redirects]]
   from = "/kesme/*"
@@ -66,29 +43,14 @@
   status = 200
 
 [[redirects]]
-  from = "/sehirle"
-  to = "/sehirle/"
-  status = 301
-
-[[redirects]]
   from = "/sehirle/*"
   to = "https://trpuzzle-sehirle.netlify.app/:splat"
   status = 200
 
 [[redirects]]
-  from = "/tilkile"
-  to = "/tilkile/"
-  status = 301
-
-[[redirects]]
   from = "/tilkile/*"
   to = "https://trpuzzle-tilkile.netlify.app/:splat"
   status = 200
-
-[[redirects]]
-  from = "/arala"
-  to = "/arala/"
-  status = 301
 
 [[redirects]]
   from = "/arala/*"
@@ -104,7 +66,6 @@
     X-Frame-Options = "SAMEORIGIN"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-# HTML her zaman taze gelsin; statik varlıklar bir süre önbelleğe alınabilir.
 [[headers]]
   for = "/*.html"
   [headers.values]
