@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://trpuzzle.com/sitemap.xml

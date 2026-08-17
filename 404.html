@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sayfa bulunamadı — TrPuzzle</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta name="theme-color" content="#14161b">
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .nf-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      gap: 14px;
+    }
+    .nf-code {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(72px, 14vw, 120px);
+      line-height: 1;
+      color: var(--gold);
+    }
+    .nf-title { font-family: var(--display); font-weight: 600; font-size: 24px; }
+    .nf-text { color: var(--ink-soft); max-width: 40ch; }
+    .nf-btn {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 46px;
+      padding: 0 28px;
+      border: 1px solid var(--btn-border);
+      border-radius: 999px;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+    }
+    .nf-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--btn-hover-ink); }
+  </style>
+</head>
+<body>
+
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("trpuzzle-theme"); } catch (e) {}
+      var theme = saved === "light" || saved === "dark"
+        ? saved
+        : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+  <header class="site-header">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/logo.png" alt="">
+      <span class="brand-text">TrPuzzle</span>
+    </a>
+  </header>
+
+  <main class="nf-wrap">
+    <div class="nf-code">404</div>
+    <h1 class="nf-title">Bu sayfa kayıp bir puzzle parçası</h1>
+    <p class="nf-text">Aradığın sayfa taşınmış ya da hiç var olmamış olabilir. Anasayfadan devam edebilirsin.</p>
+    <a class="nf-btn" href="/">Anasayfaya dön</a>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 trpuzzle.com · Her gün yeni bulmacalar.</p>
+    <nav class="footer-links">
+      <a href="/gizlilik.html">Gizlilik ve Çerezler</a>
+      <a href="/kosullar.html">Kullanım Koşulları</a>
+    </nav>
+  </footer>
+
+</body>
+</html>

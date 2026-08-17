@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kullanım Koşulları — TrPuzzle</title>
+  <meta name="description" content="TrPuzzle kullanım koşulları.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta name="theme-color" content="#14161b">
+  <link rel="canonical" href="https://trpuzzle.com/kosullar.html">
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .legal {
+      flex: 1;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 44px 24px 72px;
+    }
+    .legal h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+    .legal .updated { color: var(--ink-soft); font-size: 13.5px; margin-top: 8px; }
+    .legal h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 21px;
+      margin-top: 36px;
+      margin-bottom: 10px;
+    }
+    .legal p, .legal li { font-size: 15px; line-height: 1.65; color: var(--ink); }
+    .legal p + p { margin-top: 10px; }
+    .legal ul { padding-left: 22px; margin-top: 8px; display: grid; gap: 7px; }
+    .legal a { color: var(--gold); }
+    .legal .soft { color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("trpuzzle-theme"); } catch (e) {}
+      var theme = saved === "light" || saved === "dark"
+        ? saved
+        : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+  <header class="site-header">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/logo.png" alt="">
+      <span class="brand-text">TrPuzzle</span>
+    </a>
+  </header>
+
+  <main class="legal">
+    <h1>Kullanım Koşulları</h1>
+    <p class="updated">Son güncelleme: 17 Ağustos 2026</p>
+
+    <h2>1. Hizmet</h2>
+    <p>
+      TrPuzzle (trpuzzle.com), günlük Türkçe bulmaca oyunları sunan ücretsiz bir web sitesidir.
+      Siteyi kullanarak bu koşulları kabul etmiş sayılırsın. Hizmet "olduğu gibi" sunulur;
+      kesintisiz ya da hatasız çalışacağı garanti edilmez.
+    </p>
+
+    <h2>2. Fikri mülkiyet</h2>
+    <p>
+      Sitedeki oyunlar, tasarım, logo ve içerikler aksi belirtilmedikçe TrPuzzle'a aittir.
+      Kişisel ve ticari olmayan kullanım serbesttir; oyun sonuçlarını sosyal medyada paylaşmak
+      da buna dahildir. İçeriğin izinsiz kopyalanması, çoğaltılması ya da ticari kullanımı yasaktır.
+    </p>
+
+    <h2>3. Kullanıcı yükümlülükleri</h2>
+    <ul>
+      <li>Siteyi hukuka aykırı bir amaçla ya da hizmeti bozacak şekilde kullanmamak,</li>
+      <li>Sitenin güvenliğini test etme, tersine mühendislik ya da otomatik veri toplama (scraping) yapmamak,</li>
+      <li>Varsa isteğe bağlı hesap özelliklerinde (ör. Harf500 liderlik tablosu) uygunsuz ad kullanmamak.</li>
+    </ul>
+
+    <h2>4. Sorumluluğun sınırı</h2>
+    <p>
+      Site ücretsiz bir hizmettir; kullanımından doğabilecek dolaylı zararlardan işletmeci
+      sorumlu tutulamaz. Tarayıcının yerel depolamasındaki oyun verilerinin (ör. istatistikler)
+      kaybolması durumunda geri getirme garantisi verilmez.
+    </p>
+
+    <h2>5. Değişiklikler</h2>
+    <p>
+      Bu koşullar ve sitedeki oyunlar önceden duyurulmaksızın değiştirilebilir ya da
+      yayından kaldırılabilir. Güncel koşullar her zaman bu sayfada yayımlanır.
+    </p>
+
+    <h2>6. İletişim</h2>
+    <p class="soft">
+      Sorular için: <a href="mailto:mehmeetbozkus@gmail.com">mehmeetbozkus@gmail.com</a>
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 trpuzzle.com · Her gün yeni bulmacalar.</p>
+    <nav class="footer-links">
+      <a href="/gizlilik.html">Gizlilik ve Çerezler</a>
+      <a href="/kosullar.html">Kullanım Koşulları</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
