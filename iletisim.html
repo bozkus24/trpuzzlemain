@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İletişim — TrPuzzle</title>
+  <meta name="description" content="TrPuzzle ile iletişime geç: öneri, hata bildirimi, KVKK talepleri ve iş birlikleri için e-posta adresimiz.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta name="theme-color" content="#14161b">
+  <link rel="canonical" href="https://trpuzzle.com/iletisim.html">
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .legal {
+      flex: 1;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 44px 24px 72px;
+    }
+    .legal h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+    .legal h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 21px;
+      margin-top: 36px;
+      margin-bottom: 10px;
+    }
+    .legal p, .legal li { font-size: 15px; line-height: 1.65; color: var(--ink); }
+    .legal p + p { margin-top: 10px; }
+    .legal ul { padding-left: 22px; margin-top: 8px; display: grid; gap: 7px; }
+    .legal a { color: var(--gold); }
+    .legal .soft { color: var(--ink-soft); }
+    .eposta-kart {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .eposta-kart .adres {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(16px, 3.4vw, 20px);
+      color: var(--ink);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .eposta-kart .adres:hover { color: var(--gold); }
+    .eposta-kart .etiket {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      flex-basis: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("trpuzzle-theme"); } catch (e) {}
+      var theme = saved === "light" || saved === "dark"
+        ? saved
+        : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+  <header class="site-header">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/logo.png" alt="">
+      <span class="brand-text">TrPuzzle</span>
+    </a>
+  </header>
+
+  <main class="legal">
+    <h1>İletişim</h1>
+    <p>
+      Soru, öneri ya da geri bildirim için bize e-posta gönderebilirsin.
+      Gelen her mesaj okunur; genellikle <strong>2-3 gün içinde</strong> yanıt veririz.
+    </p>
+
+    <div class="eposta-kart">
+      <span class="etiket">E-posta</span>
+      <a class="adres" href="mailto:info@trpuzzle.com">info@trpuzzle.com</a>
+    </div>
+
+    <h2>Hangi konularda yazabilirsin?</h2>
+    <ul>
+      <li><strong>Hata bildirimi:</strong> Bir oyunda takıldığın, yanlış çalışan ya da görüntülenmeyen bir şey varsa — hangi oyun, hangi cihaz/tarayıcı olduğunu eklersen çok yardımcı olur.</li>
+      <li><strong>Oyun ve kelime önerileri:</strong> Yeni oyun fikirleri ya da bulmacalarda görmek istediğin/itiraz ettiğin kelimeler.</li>
+      <li><strong>KVKK talepleri:</strong> Kişisel verilerle ilgili her türlü talep (ayrıntılar <a href="/gizlilik.html">gizlilik politikasında</a>) — en geç 30 gün içinde yanıtlanır.</li>
+      <li><strong>İş birliği ve basın:</strong> Tanıtım, iş birliği ya da içerik kullanım izinleri.</li>
+    </ul>
+
+    <h2>Yanıt alamadın mı?</h2>
+    <p class="soft">
+      Yoğunlukta yanıt birkaç gün gecikebilir. Bir hafta içinde dönüş olmazsa aynı
+      adrese hatırlatma yazmaktan çekinme — spam klasörünü kontrol etmeyi de unutma.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 trpuzzle.com · Her gün yeni bulmacalar.</p>
+    <nav class="footer-links">
+      <a href="/hakkinda.html">Hakkında</a>
+      <a href="/iletisim.html">İletişim</a>
+      <a href="/gizlilik.html">Gizlilik ve Çerezler</a>
+      <a href="/kosullar.html">Kullanım Koşulları</a>
+    </nav>
+  </footer>
+
+</body>
+</html>

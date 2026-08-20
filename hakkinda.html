@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hakkında — TrPuzzle</title>
+  <meta name="description" content="TrPuzzle nedir? Türkçe günlük bulmaca oyunları ailesinin hikâyesi: sekiz oyun, her gün yeni bulmacalar, üyeliksiz ve tamamen ücretsiz.">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <meta name="theme-color" content="#14161b">
+  <link rel="canonical" href="https://trpuzzle.com/hakkinda.html">
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .legal {
+      flex: 1;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 44px 24px 72px;
+    }
+    .legal h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+    .legal h2 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 21px;
+      margin-top: 36px;
+      margin-bottom: 10px;
+    }
+    .legal p, .legal li { font-size: 15px; line-height: 1.65; color: var(--ink); }
+    .legal p + p { margin-top: 10px; }
+    .legal ul { padding-left: 22px; margin-top: 8px; display: grid; gap: 7px; }
+    .legal a { color: var(--gold); }
+    .legal .soft { color: var(--ink-soft); }
+    .oyun-listesi {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .oyun-listesi li {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .oyun-listesi b { display: block; font-family: var(--display); font-size: 16px; margin-bottom: 2px; }
+    .oyun-listesi span { color: var(--ink-soft); font-size: 13.5px; line-height: 1.45; display: block; }
+    .oyun-listesi a { text-decoration: none; color: inherit; }
+    @media (max-width: 560px) { .oyun-listesi { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("trpuzzle-theme"); } catch (e) {}
+      var theme = saved === "light" || saved === "dark"
+        ? saved
+        : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+  <header class="site-header">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/logo.png" alt="">
+      <span class="brand-text">TrPuzzle</span>
+    </a>
+  </header>
+
+  <main class="legal">
+    <h1>Hakkında</h1>
+
+    <p>
+      TrPuzzle, Türkçe konuşan bulmaca severler için hazırlanan bir <strong>günlük
+      bulmaca ailesi</strong>dir. Dünyada milyonlarca kişinin sevdiği günlük kelime ve
+      zekâ oyunu formatlarını, Türkçenin kendi kurallarına ve kelime hazinesine göre
+      sıfırdan tasarlıyoruz — çeviri değil, Türkçe düşünülmüş oyunlar.
+    </p>
+    <p>
+      Fikir basit bir ihtiyaçtan doğdu: her sabah bir-iki dakikalık keyifli bir zihin
+      egzersizi yapmak isteyen ama Türkçe kaliteli günlük bulmaca bulamayan oyuncular
+      için tek bir adres olmak. Bugün sitede <strong>sekiz oyun</strong> var ve her
+      biri her gün gece yarısı (Türkiye saati) yenilenen bir bulmacayla geliyor.
+    </p>
+
+    <h2>Oyunlarımız</h2>
+    <ul class="oyun-listesi">
+      <li><a href="/harfle/"><b>Harfle</b><span>Gizli beş harfli kelimeyi altı tahminde bul; renkler yol gösterir.</span></a></li>
+      <li><a href="/harf500/"><b>Harf500</b><span>Kaç harfin doğru olduğunu görürsün — hangileri olduğunu sen çözersin.</span></a></li>
+      <li><a href="/baklava/"><b>Baklava</b><span>Karoları yer değiştirerek altı kelimeyi 15 hamlede tamamla.</span></a></li>
+      <li><a href="/bagla/"><b>Bağla</b><span>On altı kelimeyi ortak bağlarına göre dört gizli gruba ayır.</span></a></li>
+      <li><a href="/kesme/"><b>Kesme</b><span>Günün şeklini tek çizgiyle tam ortadan ikiye böl.</span></a></li>
+      <li><a href="/sehirle/"><b>Şehirle</b><span>Renk ipuçlarıyla Türkiye'nin gizli ilini bulmaya çalış.</span></a></li>
+      <li><a href="/tilkile/"><b>Tilkile</b><span>Harf tahmin et — ama her yanlış tahmin bulmacayı büyütür.</span></a></li>
+      <li><a href="/arala/"><b>Arala</b><span>Alfabetik aralığı daralta daralta gizli kelimeye ulaş.</span></a></li>
+    </ul>
+
+    <h2>İlkelerimiz</h2>
+    <ul>
+      <li><strong>Üyeliksiz ve ücretsiz:</strong> Hiçbir oyun kayıt, giriş ya da ödeme istemez. Aç ve oyna.</li>
+      <li><strong>Verine saygı:</strong> Kişisel veri toplamayız; ilerlemen ve istatistiklerin yalnızca kendi cihazında saklanır. Ayrıntılar <a href="/gizlilik.html">gizlilik politikamızda</a>.</li>
+      <li><strong>Hafif ve hızlı:</strong> Sayfalarımız üçüncü taraf sunuculara istek atmaz; yazı tipleri dahil her şey kendi adresimizden gelir.</li>
+      <li><strong>Her gün taze:</strong> Bulmacalar günlük yenilenir; çoğu oyunda geçmiş günleri arşivden oynayabilirsin.</li>
+    </ul>
+
+    <h2>Kim yapıyor?</h2>
+    <p>
+      TrPuzzle, Türkiye'den bağımsız bir geliştirici tarafından tasarlanıp
+      geliştiriliyor ve aktif olarak yeni oyunlarla büyütülüyor. Oyun önerin, hata
+      bildirimin ya da aklına takılan herhangi bir şey için
+      <a href="/iletisim.html">iletişim sayfasından</a> bize ulaşabilirsin — her
+      mesaj okunuyor.
+    </p>
+
+    <p class="soft">Keyifli bulmacalar! 🧩</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 trpuzzle.com · Her gün yeni bulmacalar.</p>
+    <nav class="footer-links">
+      <a href="/hakkinda.html">Hakkında</a>
+      <a href="/iletisim.html">İletişim</a>
+      <a href="/gizlilik.html">Gizlilik ve Çerezler</a>
+      <a href="/kosullar.html">Kullanım Koşulları</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
