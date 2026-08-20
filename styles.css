@@ -312,10 +312,43 @@ main {
   color: var(--ink);
 }
 
+.card-desc {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
 .card-foot {
   margin-top: auto;
   padding-top: 6px;
 }
+
+/* ─────────────── Tanıtım bölümü ─────────────── */
+
+.about-band {
+  margin-top: 56px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+  max-width: 68ch;
+}
+
+.about-band h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 12px;
+  text-wrap: balance;
+}
+
+.about-band p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.about-band p + p { margin-top: 12px; }
+
+.about-band a { color: var(--gold); }
 
 /* ─────────────── Butonlar ─────────────── */
 
@@ -443,6 +476,7 @@ main {
   .card-icon svg, .card-icon img { width: 32px; height: 32px; }
 
   .card-name { flex: 1; font-size: 21px; }
+  .card-desc { display: none; }
 
   .card-foot { margin: 0; padding: 0; }
   .btn { width: auto; height: 40px; padding: 0 22px; font-size: 14px; }
