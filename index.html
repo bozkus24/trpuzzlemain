@@ -276,16 +276,10 @@
 
       <!-- ═══ TİLKİLE ═══ -->
       <article class="game-card" style="--acc-dark:#ff9f45; --acc-lite:#b45c10">
-        <!-- LOGO: Tilkile logosu hazır olunca bu SVG'yi <img src="assets/tilkile.svg" alt=""> ile değiştir -->
+        <!-- LOGO: yerel çizgi-sanat tilki logosu (assets/tilkile.png); CSS mask ile
+             vurgu rengine boyanır, iki temaya da uyar. Kaynak: tilkilehomepage.jpg -->
         <div class="card-icon" aria-hidden="true">
-          <!-- Geometrik tilki: iki kulak + uçurtma biçimli yüz, oyma gözler -->
-          <svg viewBox="0 0 100 100">
-            <path d="M16 38 L20 8 L44 25 Z" fill="currentColor"/>
-            <path d="M84 38 L80 8 L56 25 Z" fill="currentColor"/>
-            <path d="M16 38 L50 24 L84 38 L50 90 Z" fill="currentColor"/>
-            <circle cx="37" cy="45" r="4.5" style="fill: var(--surface)"/>
-            <circle cx="63" cy="45" r="4.5" style="fill: var(--surface)"/>
-          </svg>
+          <span class="card-logo card-logo-tilkile"></span>
         </div>
         <h2 class="card-name">Tilkile</h2>
         <p class="card-desc">Harf tahmin et — ama her yanlış tahmin tahtaya yeni bir kelime ekler.</p>
