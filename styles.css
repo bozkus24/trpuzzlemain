@@ -297,11 +297,29 @@ main {
 }
 
 .card-icon svg,
-.card-icon img {
+.card-icon img,
+.card-icon .card-logo {
   display: block;
   width: 42px;
   height: 42px;
   object-fit: contain;
+}
+
+/* Çizgi-sanat logolar: mask ile vurgu rengine (currentColor) boyanır — tüm
+   kart ikonlarıyla tutarlı, koyu/aydınlık temaya otomatik uyar */
+.card-logo {
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.card-logo-tilkile {
+  -webkit-mask-image: url(assets/tilkile.png);
+  mask-image: url(assets/tilkile.png);
 }
 
 .card-name {
@@ -451,7 +469,7 @@ main {
 
   .game-card { padding: 20px 16px 18px; gap: 12px; }
   .card-icon { width: 58px; height: 58px; border-radius: 12px; }
-  .card-icon svg, .card-icon img { width: 36px; height: 36px; }
+  .card-icon svg, .card-icon img, .card-icon .card-logo { width: 36px; height: 36px; }
   .card-name { font-size: 20px; }
   .btn { height: 42px; font-size: 14px; }
 }
@@ -473,7 +491,7 @@ main {
     border-radius: 12px;
     flex-shrink: 0;
   }
-  .card-icon svg, .card-icon img { width: 32px; height: 32px; }
+  .card-icon svg, .card-icon img, .card-icon .card-logo { width: 32px; height: 32px; }
 
   .card-name { flex: 1; font-size: 21px; }
   .card-desc { display: none; }
