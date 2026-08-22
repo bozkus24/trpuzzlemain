@@ -17,7 +17,517 @@
   <meta name="twitter:card" content="summary">
   <!-- Fontlar yerelde barındırılır; hiçbir harici sunucuya istek atılmaz -->
   <link rel="stylesheet" href="assets/fonts.css">
-  <link rel="stylesheet" href="styles.css">
+  <!-- Stiller inline gömüldü: harici tek CSS isteği başarısız olunca sayfanın
+       çıplak render olma bug'ı bunu engeller (alt sayfalarla aynı desen). -->
+  <style>
+/* ═══════════════════════════════════════════════════════════
+   TrPuzzle — Anasayfa stilleri (gece salonu + aydınlık mod)
+   Varsayılan koyu tema; html[data-theme="light"] açık paleti açar.
+   Oyun vurgu renkleri kart üzerinde --acc-dark/--acc-lite olarak
+   tanımlıdır; aktif temaya göre --acc'e bağlanır.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #14161b;
+  --surface: #1d2026;
+  --line: #2c3038;
+  --ink: #f0ede6;
+  --ink-soft: #9aa0ab;
+  --gold: #f0c34e;
+  --halo: #1c2470;
+  --header-bg: rgba(20, 22, 27, 0.82);
+  --hover-bg: #262a32;
+  --drawer-bg: #191c22;
+  --drawer-hover: #232730;
+  --btn-border: #3a3f49;
+  --btn-hover-ink: #14161b;
+  --footer-ink: #6d737e;
+  --toast-bg: #f0ede6;
+  --toast-ink: #14161b;
+  --card-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+html[data-theme="light"] {
+  --bg: #f4f2ec;
+  --surface: #ffffff;
+  --line: #e2dfd6;
+  --ink: #1d1f24;
+  --ink-soft: #5b6068;
+  --gold: #b8860b;
+  --halo: #dce6f2;
+  --header-bg: rgba(244, 242, 236, 0.85);
+  --hover-bg: #e9e6de;
+  --drawer-bg: #faf9f5;
+  --drawer-hover: #edeae2;
+  --btn-border: #c9c5ba;
+  --btn-hover-ink: #ffffff;
+  --footer-ink: #8a8f98;
+  --toast-bg: #1d1f24;
+  --toast-ink: #f4f2ec;
+  --card-shadow: 0 14px 30px rgba(30, 33, 40, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--sans);
+  background:
+    radial-gradient(1100px 480px at 50% -140px, var(--halo) 0%, transparent 62%),
+    var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Oyun vurgusu: aktif temaya göre çözülür */
+.game-card { --acc: var(--acc-dark, var(--gold)); }
+html[data-theme="light"] .game-card { --acc: var(--acc-lite, var(--gold)); }
+
+/* ─────────────── Üst bar ─────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  padding: 0 20px;
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.menu-btn,
+.theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menu-btn:hover,
+.theme-btn:hover { background: var(--hover-bg); }
+
+.theme-btn { margin-left: auto; }
+
+/* Tema düğmesi ikonları: koyu temada güneş, açıkta ay görünür */
+.theme-btn .icon-sun { display: block; }
+.theme-btn .icon-moon { display: none; }
+html[data-theme="light"] .theme-btn .icon-sun { display: none; }
+html[data-theme="light"] .theme-btn .icon-moon { display: block; }
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.brand-logo {
+  display: block;
+  height: 38px;
+  width: auto;
+}
+
+.brand-text {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 720px) {
+  .brand-logo { height: 33px; }
+  .brand-text { font-size: 21px; }
+}
+
+/* ─────────────── Yan menü ─────────────── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.overlay.open { opacity: 1; pointer-events: auto; }
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  width: min(300px, 84vw);
+  background: var(--drawer-bg);
+  border-right: 1px solid var(--line);
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.45);
+  transform: translateX(-103%);
+  transition: transform 0.28s cubic-bezier(0.33, 1, 0.68, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer.open { transform: translateX(0); }
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.drawer-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.drawer-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.drawer-close:hover { background: var(--hover-bg); }
+
+.drawer-nav {
+  padding: 12px 10px;
+  overflow-y: auto;
+}
+
+.drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15.5px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.drawer-link:hover { background: var(--drawer-hover); }
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─────────────── Başlık ─────────────── */
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 52px 24px 72px;
+}
+
+.page-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.page-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(32px, 4.6vw, 46px);
+  line-height: 1.12;
+  text-wrap: balance;
+  max-width: 15ch;
+  margin-top: 10px;
+}
+
+.page-subtitle {
+  color: var(--ink-soft);
+  font-size: 15.5px;
+  line-height: 1.5;
+  margin-top: 12px;
+  margin-bottom: 40px;
+  max-width: 46ch;
+}
+
+/* ─────────────── Oyun kartları ─────────────── */
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 22px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--acc) 55%, var(--line));
+  box-shadow: var(--card-shadow);
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--acc) 12%, transparent);
+  color: var(--acc);
+}
+
+.card-icon svg,
+.card-icon img,
+.card-icon .card-logo {
+  display: block;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+/* Çizgi-sanat logolar: mask ile vurgu rengine (currentColor) boyanır — tüm
+   kart ikonlarıyla tutarlı, koyu/aydınlık temaya otomatik uyar */
+.card-logo {
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.card-logo-tilkile {
+  -webkit-mask-image: url(assets/tilkile.png);
+  mask-image: url(assets/tilkile.png);
+}
+
+.card-name {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.card-desc {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.card-foot {
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+/* ─────────────── Tanıtım bölümü ─────────────── */
+
+.about-band {
+  margin-top: 56px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+  max-width: 68ch;
+}
+
+.about-band h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 12px;
+  text-wrap: balance;
+}
+
+.about-band p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.about-band p + p { margin-top: 12px; }
+
+.about-band a { color: var(--gold); }
+
+/* ─────────────── Butonlar ─────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--btn-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14.5px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.btn:hover {
+  background: var(--acc, var(--gold));
+  border-color: var(--acc, var(--gold));
+  color: var(--btn-hover-ink);
+}
+
+.btn:active { transform: translateY(1px); }
+
+/* Klavye odağı */
+.btn:focus-visible,
+.menu-btn:focus-visible,
+.theme-btn:focus-visible,
+.drawer-close:focus-visible,
+.drawer-link:focus-visible,
+.brand:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ─────────────── Alt bilgi ─────────────── */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 22px 24px 30px;
+  text-align: center;
+  color: var(--footer-ink);
+  font-size: 13px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.footer-links a {
+  color: var(--footer-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-links a:hover { color: var(--ink); }
+
+/* ─────────────── Toast ─────────────── */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  z-index: 200;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--toast-bg);
+  color: var(--toast-ink);
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  max-width: calc(100vw - 40px);
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─────────────── Duyarlı düzen ─────────────── */
+
+@media (max-width: 880px) {
+  .games-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  main { padding: 38px 18px 56px; }
+
+  .game-card { padding: 20px 16px 18px; gap: 12px; }
+  .card-icon { width: 58px; height: 58px; border-radius: 12px; }
+  .card-icon svg, .card-icon img, .card-icon .card-logo { width: 36px; height: 36px; }
+  .card-name { font-size: 20px; }
+  .btn { height: 42px; font-size: 14px; }
+}
+
+/* Dar ekranda kartlar kompakt satırlara dönüşür */
+@media (max-width: 560px) {
+  .games-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .game-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 14px 14px 16px;
+  }
+
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  .card-icon svg, .card-icon img, .card-icon .card-logo { width: 32px; height: 32px; }
+
+  .card-name { flex: 1; font-size: 21px; }
+  .card-desc { display: none; }
+
+  .card-foot { margin: 0; padding: 0; }
+  .btn { width: auto; height: 40px; padding: 0 22px; font-size: 14px; }
+}
+
+/* Hareket azaltma tercihi */
+@media (prefers-reduced-motion: reduce) {
+  .game-card, .btn, .drawer, .overlay, .toast { transition: none; }
+  .game-card:hover { transform: none; }
+}
+  </style>
 </head>
 <body>
 
