@@ -49,7 +49,7 @@ html[data-theme="light"] {
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
 
 body {
   font-family: var(--sans);
