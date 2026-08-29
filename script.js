@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   TrPuzzle — Anasayfa etkileşimleri
+   TrPuzzle - Anasayfa etkileşimleri
    ═══════════════════════════════════════════════ */
 
 (function () {
