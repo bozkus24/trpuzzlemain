@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   TrPuzzle — Anasayfa stilleri (gece salonu + aydınlık mod)
+   TrPuzzle - Anasayfa stilleri (gece salonu + aydınlık mod)
    Varsayılan koyu tema; html[data-theme="light"] açık paleti açar.
    Oyun vurgu renkleri kart üzerinde --acc-dark/--acc-lite olarak
    tanımlıdır; aktif temaya göre --acc'e bağlanır.
@@ -305,7 +305,7 @@ main {
   object-fit: contain;
 }
 
-/* Çizgi-sanat logolar: mask ile vurgu rengine (currentColor) boyanır — tüm
+/* Çizgi-sanat logolar: mask ile vurgu rengine (currentColor) boyanır - tüm
    kart ikonlarıyla tutarlı, koyu/aydınlık temaya otomatik uyar */
 .card-logo {
   background-color: currentColor;

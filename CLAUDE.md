@@ -49,7 +49,8 @@ oturumlardan merge yapıyor olabilir).
   (Hakkında/İletişim/Gizlilik/Koşullar). İletişim: info@trpuzzle.com
 - Oyun sayfalarının sonunda `.tp-bilgi` içerik bölümü + `.tp-footer` vardır —
   oyun düzenlerken bunları koru
-- Tipografi: Fraunces (başlık) + sistem sans; Harfle ikonunda Baloo 2
+- Tipografi: Fraunces (başlık) + sistem sans. Oyun ikonlarındaki harfler
+  fonta bağlı değil, SVG path olarak çizilidir (Baloo 2 artık kullanılmıyor)
 
 ## Doğrulama (değişiklik sonrası)
 `python3 -m http.server 8092` + Playwright (`/opt/pw-browsers/chromium`,
