@@ -377,6 +377,44 @@ main {
   max-width: 46ch;
 }
 
+/* Günlük takip: kartlarla aynı ikonlar ve oyun renkleri. */
+.daily-tracker { max-width: 540px; margin: -14px 0 32px; }
+.tracker-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.tracker-title { font-size:13px; font-weight:600; color:var(--ink); }
+.tracker-count { font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+.tracker-games { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:9px; }
+.tracker-game { position:relative; display:flex; align-items:center; justify-content:center; aspect-ratio:1; border:1px solid var(--line); border-radius:14px; background:var(--surface); color:var(--acc-lite); text-decoration:none; transition:background .15s,border-color .15s; }
+.tracker-icon { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; width:var(--tracker-icon-size,68%); height:var(--tracker-icon-size,68%); opacity:.38; filter:grayscale(1); }
+/* SVG iç boşlukları ve logoların biçimleri için görsel boyut dengelemesi. */
+.tracker-game[data-game="Harfle"] { --tracker-icon-size:78%; }
+.tracker-game[data-game="Harf500"] { --tracker-icon-size:73%; }
+.tracker-game[data-game="Baklava"] { --tracker-icon-size:65%; }
+.tracker-game[data-game="Arala"] { --tracker-icon-size:70%; }
+.tracker-game[data-game="Tilkile"] { --tracker-icon-size:62%; }
+.tracker-game[data-game="Kesme"] { --tracker-icon-size:76%; }
+.tracker-game[data-game="Bağla"] { --tracker-icon-size:56%; }
+.tracker-game[data-game="Şehirle"] { --tracker-icon-size:82%; }
+.tracker-icon svg,.tracker-icon img,.tracker-icon .card-logo { display:block; width:100%; height:100%; object-fit:contain; object-position:center; margin:0; }
+.tracker-game[data-state="started"],.tracker-game[data-state="completed"] { background:color-mix(in srgb,var(--acc-lite) 10%,var(--surface)); border-color:color-mix(in srgb,var(--acc-lite) 40%,var(--line)); }
+.tracker-game[data-state="started"] .tracker-icon,.tracker-game[data-state="completed"] .tracker-icon { opacity:1; filter:none; }
+.tracker-mark { position:absolute; right:-3px; bottom:-3px; width:17px; height:17px; display:none; align-items:center; justify-content:center; border-radius:50%; background:var(--acc-lite); color:var(--surface); border:2px solid var(--bg); }
+.tracker-mark svg { width:11px; height:11px; }
+.tracker-game[data-state="completed"] .tracker-mark { display:flex; }
+.tracker-game[data-state="started"] { border:2px dashed var(--acc-lite); }
+.tracker-game[data-state="started"] .tracker-mark { display:flex; }
+.tracker-mark .tracker-resume { display:none; }
+.tracker-game[data-state="started"] .tracker-check { display:none; }
+.tracker-game[data-state="started"] .tracker-resume { display:block; width:12px; height:12px; }
+.tracker-game:hover { border-color:var(--acc-lite); }
+.tracker-game:focus-visible { outline:2px solid var(--ink); outline-offset:4px; }
+.tracker-bar { height:3px; margin-top:15px; border-radius:3px; background:var(--line); overflow:hidden; }
+.tracker-bar-fill { height:100%; width:0; background:var(--gold); border-radius:inherit; }
+@media(max-width:420px) {
+  .tracker-games { gap:6px; }
+  .tracker-game { border-radius:10px; }
+  .tracker-mark { width:15px; height:15px; }
+}
+
 /* ─────────────── Oyun kartları ─────────────── */
 
 .games-grid {
@@ -521,6 +559,8 @@ main {
 
 .about-band {
   margin-top: 56px;
+  margin-inline: auto;
+  text-align: center;
   padding-top: 34px;
   border-top: 1px solid var(--line);
   max-width: 68ch;
@@ -639,6 +679,12 @@ main {
 
 /* ─────────────── Duyarlı düzen ─────────────── */
 
+/* Her ekran boyutunda giriş bölümü kart ızgarasının merkezinde dursun. */
+.page-eyebrow, .page-title, .page-subtitle { text-align:center; }
+.page-title { max-width:22ch; margin-inline:auto; }
+.page-subtitle { max-width:58ch; margin-inline:auto; }
+.daily-tracker { margin-inline:auto; }
+
 @media (max-width: 900px) {
   main { padding: 38px 18px 56px; }
 }
@@ -649,8 +695,11 @@ main {
   .game-card { width: calc((100% - 12px) / 2); }  /* 2 sütun */
 
   .card-top { padding: 22px 10px 18px; gap: 10px; }
-  .card-icon { width: 58px; height: 58px; border-radius: 13px; }
-  .card-icon svg, .card-icon img, .card-icon .card-logo { width: 36px; height: 36px; }
+  .card-icon { height: 69px; }
+  .card-icon svg, .card-icon img, .card-icon .card-logo {
+    width: calc(var(--ico-size, 60px) * .82);
+    height: calc(var(--ico-size, 60px) * .82);
+  }
   .card-name { font-size: 18.5px; }
 
   .card-bottom { padding: 12px 11px 6px; }
@@ -706,7 +755,7 @@ main {
           <span class="drawer-toggle" aria-label="Harfle bağlantıları"><svg class="drawer-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="drawer-sub">
-          <a href="/harfle/">Oyna</a><a href="/harfle/#arsiv">Arşiv</a>
+          <a href="/harfle/#arsiv">Harfle Arşivi</a>
         </div>
       </details>
       <details class="drawer-item">
@@ -718,7 +767,7 @@ main {
           <span class="drawer-toggle" aria-label="Harf500 bağlantıları"><svg class="drawer-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="drawer-sub">
-          <a href="/harf500/">Oyna</a><a href="/harf500/#arsiv">Arşiv</a>
+          <a href="/harf500/#arsiv">Harf500 Arşivi</a>
         </div>
       </details>
       <details class="drawer-item">
@@ -730,7 +779,7 @@ main {
           <span class="drawer-toggle" aria-label="Baklava bağlantıları"><svg class="drawer-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="drawer-sub">
-          <a href="/baklava/">Oyna</a><a href="/baklava/#arsiv">Arşiv</a>
+          <a href="/baklava/#arsiv">Baklava Arşivi</a>
         </div>
       </details>
       <details class="drawer-item">
@@ -742,7 +791,7 @@ main {
           <span class="drawer-toggle" aria-label="Arala bağlantıları"><svg class="drawer-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="drawer-sub">
-          <a href="/arala/">Oyna</a><a href="/arala/#arsiv">Arşiv</a>
+          <a href="/arala/#arsiv">Arala Arşivi</a>
         </div>
       </details>
       <details class="drawer-item">
@@ -754,7 +803,7 @@ main {
           <span class="drawer-toggle" aria-label="Tilkile bağlantıları"><svg class="drawer-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="drawer-sub">
-          <a href="/tilkile/">Oyna</a><a href="/tilkile/#arsiv">Arşiv</a>
+          <a href="/tilkile/#arsiv">Tilkile Arşivi</a>
         </div>
       </details>
       <details class="drawer-item">
@@ -766,7 +815,7 @@ main {
           <span class="drawer-toggle" aria-label="Kesme bağlantıları"><svg class="drawer-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="drawer-sub">
-          <a href="/kesme/">Oyna</a><a href="/kesme/#arsiv">Arşiv</a>
+          <a href="/kesme/#arsiv">Kesme Arşivi</a>
         </div>
       </details>
       <details class="drawer-item">
@@ -778,7 +827,7 @@ main {
           <span class="drawer-toggle" aria-label="Bağla bağlantıları"><svg class="drawer-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="drawer-sub">
-          <a href="/bagla/">Oyna</a><a href="/bagla/#arsiv">Arşiv</a>
+          <a href="/bagla/#arsiv">Bağla Arşivi</a>
         </div>
       </details>
       <a class="drawer-row drawer-solo" href="/sehirle/">
@@ -912,6 +961,15 @@ c0 -41 -6 -73 -15 -88 -19 -28 -100 -82 -139 -92 l-29 -7 7 -83 c8 -101 3
     <p class="page-eyebrow">Günlük Türkçe bulmacalar</p>
     <h1 class="page-title">Bugün hangisiyle başlıyorsun?</h1>
     <p class="page-subtitle">Sekiz oyun, her gün yeni bulmacalarla burada. Kahveni al, rahat bir köşe bul.</p>
+
+    <section class="daily-tracker" aria-label="Günlük oyun takibi">
+      <div class="tracker-heading">
+        <h2 class="tracker-title">Bugünkü ilerlemen</h2>
+        <span class="tracker-count" id="trackerCount" aria-live="polite">0/8 tamamlandı</span>
+      </div>
+      <nav class="tracker-games" id="trackerGames" aria-label="Oyun ilerlemelerin"></nav>
+      <div class="tracker-bar" aria-hidden="true"><div class="tracker-bar-fill" id="trackerFill"></div></div>
+    </section>
 
     <section class="games-grid">
 <!-- ═══ HARFLE ═══ -->
@@ -1248,7 +1306,135 @@ c0 -41 -6 -73 -15 -88 -19 -28 -100 -82 -139 -92 l-29 -7 7 -83 c8 -101 3
           data-url="https://harfle.example.com">Oyna</a>
      data-url tanımlıysa oraya yönlendirir, değilse
      "çok yakında" mesajı gösterir. */
+  const trackerGames = document.getElementById("trackerGames");
+  document.querySelectorAll(".game-card").forEach(function (card) {
+    const play = card.querySelector(".btn-play");
+    const link = document.createElement("a");
+    link.className = "tracker-game";
+    link.href = play.dataset.url;
+    link.dataset.game = play.dataset.game;
+    link.setAttribute("style", card.getAttribute("style"));
+    const icon = card.querySelector(".card-icon").cloneNode(true);
+    icon.className = "tracker-icon";
+    icon.setAttribute("aria-hidden", "true");
+    link.appendChild(icon);
+    const mark = document.createElement("span");
+    mark.className = "tracker-mark";
+    mark.setAttribute("aria-hidden", "true");
+    mark.innerHTML = '<svg class="tracker-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3 3 7-7"/></svg><svg class="tracker-resume" viewBox="0 0 16 16" fill="currentColor"><path d="M5 3.5v9l7-4.5z"/></svg>';
+    link.appendChild(mark);
+    trackerGames.appendChild(link);
+  });
+
+  function updateTracker(progress) {
+    let completed = 0;
+    const links = trackerGames.querySelectorAll(".tracker-game");
+    links.forEach(function (link) {
+      const game = link.dataset.game;
+      const state = progress[game] || "new";
+      link.dataset.state = state;
+      const label = state === "completed" ? "Tamamlandı · Sonucu Gör" : state === "started" ? "Devam Et" : "Oyna";
+      link.setAttribute("aria-label", game + ": " + label);
+      link.title = game + ": " + label;
+      if (state === "completed") completed++;
+    });
+    const count = document.getElementById("trackerCount");
+    const text = completed + "/" + links.length + " tamamlandı";
+    if (count.textContent !== text) count.textContent = text;
+    document.getElementById("trackerFill").style.width = (links.length ? completed / links.length * 100 : 0) + "%";
+  }
+
   const playLinks = document.querySelectorAll(".btn-play");
+
+  /* Aynı domaindeki oyunların mevcut kayıtlarını yalnızca okur.
+     Gün hesapları her oyunun kullandığı yerel tarih biçimiyle eşleşir;
+     arşiv ve bitmiş oyunlar bugünkü oyunu "Devam Et" yapmaz. */
+  function readProgress(key) {
+    try {
+      const value = JSON.parse(localStorage.getItem(key));
+      return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+    } catch (e) { return {}; }
+  }
+
+  function hasGuesses(value) {
+    return Array.isArray(value) && value.length > 0;
+  }
+
+  function dailyProgress(now) {
+    const year = now.getFullYear(), month = now.getMonth(), day = now.getDate();
+    const date = year + "-" + String(month + 1).padStart(2, "0") + "-" + String(day).padStart(2, "0");
+    const dayId = Math.floor(Date.UTC(year, month, day) / 86400000);
+    const puzzleNo = dayId - Date.UTC(2026, 7, 1) / 86400000 + 1;
+    const midnight = new Date(year, month, day).getTime();
+    const foxNo = Math.floor((midnight - new Date(2026, 7, 1).getTime()) / 86400000) + 1;
+    const aralaDay = Math.round((midnight - new Date(2026, 0, 1).getTime()) / 86400000);
+
+    const harfle = readProgress("trw-" + date);
+    const settings = readProgress("word500tr.ayarlar");
+    const level = ["kolay", "standart", "zor"].includes(settings.seviye) ? settings.seviye : "standart";
+    // Harf500 açılışta son seçilen seviyeyi yükler.
+    const harf500 = readProgress("word500tr.oyun." + level + "." + date);
+    const baklava = readProgress("petek-progress-v1")[dayId] || {};
+    const tilkile = readProgress("foximax-daily-" + foxNo);
+    const bagla = readProgress("baglantilar.gunluk." + puzzleNo);
+    const sehirle = readProgress("iller-globle:daily:" + date);
+    const oldArala = readProgress("aradle_day_v1");
+    const arala = readProgress("aradle_days_v2")[aralaDay] ||
+      (oldArala.day === aralaDay ? oldArala : {});
+
+    const started = {
+      Harfle: hasGuesses(harfle.guesses) && !harfle.done && !harfle.win,
+      Harf500: harf500.surum === 1 && hasGuesses(harf500.gecmis) && !harf500.bitti && !harf500.kazandi,
+      Baklava: baklava.phase === "play" && typeof baklava.swapsLeft === "number" &&
+        baklava.swapsLeft > 0 && baklava.swapsLeft < 15,
+      Arala: typeof arala.steps === "number" && arala.steps > 0 && !arala.done && !arala.lost && !arala.g,
+      Tilkile: tilkile.status === "playing" && hasGuesses(tilkile.guessed),
+      // Kesme tek hamlede biter; kaydedilmiş, yarım kalmış bir turu yoktur.
+      Kesme: false,
+      "Bağla": bagla.durum === "oyunda" && hasGuesses(bagla.tahminler),
+      "Şehirle": hasGuesses(sehirle.guesses) && !sehirle.won && !sehirle.gaveUp
+    };
+    // Kesme günlük kayıtlarında UTC tarih kullanır ve tek hamlede tamamlanır.
+    const kesme = readProgress("kesme2-day-" + now.toISOString().slice(0, 10));
+    const aralaResult = readProgress("aradle_result_v1")[aralaDay];
+    const completed = {
+      Harfle: harfle.done === true || harfle.win === true,
+      Harf500: harf500.surum === 1 && (harf500.bitti === true || harf500.kazandi === true),
+      Baklava: baklava.phase === "win" || baklava.phase === "lose",
+      Arala: arala.done === true || arala.lost === true || arala.g === true ||
+        (typeof aralaResult === "number" && (aralaResult === -1 || (aralaResult >= 1 && aralaResult <= 5))),
+      Tilkile: tilkile.status === "won" || tilkile.status === "lost",
+      Kesme: Array.isArray(kesme.cut) && kesme.cut.length === 4,
+      "Bağla": bagla.durum === "kazandi" || bagla.durum === "kaybetti",
+      "Şehirle": sehirle.won === true || sehirle.gaveUp === true
+    };
+    const states = {};
+    Object.keys(started).forEach(function (game) {
+      states[game] = completed[game] ? "completed" : started[game] ? "started" : "new";
+    });
+    return states;
+  }
+
+  function updatePlayLabels() {
+    const progress = dailyProgress(new Date());
+    updateTracker(progress);
+    playLinks.forEach(function (link) {
+      const state = progress[link.dataset.game];
+      link.textContent = state === "completed" ? "Sonucu Gör" : state === "started" ? "Devam Et" : "Oyna";
+    });
+  }
+
+  updatePlayLabels();
+  // Geri tuşu (bfcache), başka sekmede oynama ve gün değişimi.
+  window.addEventListener("pageshow", updatePlayLabels);
+  window.addEventListener("storage", updatePlayLabels);
+  window.addEventListener("focus", updatePlayLabels);
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) updatePlayLabels();
+  });
+  setInterval(function () {
+    if (!document.hidden) updatePlayLabels();
+  }, 60000);
 
   playLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {

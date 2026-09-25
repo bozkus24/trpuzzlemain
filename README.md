@@ -57,9 +57,15 @@ Oyunlar henüz yayında olmadığı için "Oyna" butonları şimdilik "çok yak�
 
 ## Yerelde çalıştırma
 
-Herhangi bir statik sunucu yeterli:
+Anasayfa ve oyunları aynı adreste denemek için:
 
 ```bash
-python3 -m http.server 8080
-# http://localhost:8080
+python3 tools/preview.py
+# http://127.0.0.1:8093/
 ```
+
+Bu sunucu anasayfayı yerel dosyalardan, oyunları `netlify.toml` içindeki
+Netlify adreslerinden sunar; oyunlar için internet bağlantısı gerekir.
+Böylece aynı tarayıcıdaki oyun ilerlemesi anasayfadaki **Devam Et** düğmesine
+yansır. Dosyayı `file://` ile açmak veya düz `http.server` kullanmak oyun
+proxy'lerini çalıştırmaz. Canlı sitedeki kayıtlar yerel önizlemeye taşınmaz.
