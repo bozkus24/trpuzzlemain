@@ -13,13 +13,14 @@
   }
 
   function dailyProgress(now, selectedLevel) {
-    const year = now.getFullYear(), month = now.getMonth(), day = now.getDate();
+    const tr = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+    const year = tr.getUTCFullYear(), month = tr.getUTCMonth(), day = tr.getUTCDate();
     const date = year + "-" + String(month + 1).padStart(2, "0") + "-" + String(day).padStart(2, "0");
     const dayId = Math.floor(Date.UTC(year, month, day) / 86400000);
     const puzzleNo = dayId - Date.UTC(2026, 7, 1) / 86400000 + 1;
-    const midnight = new Date(year, month, day).getTime();
-    const foxNo = Math.floor((midnight - new Date(2026, 7, 1).getTime()) / 86400000) + 1;
-    const aralaDay = Math.round((midnight - new Date(2026, 0, 1).getTime()) / 86400000);
+    const midnight = Date.UTC(year, month, day);
+    const foxNo = Math.floor((midnight - Date.UTC(2026, 7, 1)) / 86400000) + 1;
+    const aralaDay = Math.round((midnight - Date.UTC(2026, 0, 1)) / 86400000);
 
     const harfle = readProgress("trw-" + date);
     const settings = readProgress("word500tr.ayarlar");
@@ -47,8 +48,8 @@
       "Bağla": bagla.durum === "oyunda" && hasGuesses(bagla.tahminler),
       "Şehirle": hasGuesses(sehirle.guesses) && !sehirle.won && !sehirle.gaveUp
     };
-    // Kesme günlük kayıtlarında UTC tarih kullanır ve tek hamlede tamamlanır.
-    const kesme = readProgress("kesme2-day-" + now.toISOString().slice(0, 10));
+    // Tüm günlük kayıtlar Türkiye tarihini kullanır; Kesme tek hamlede biter.
+    const kesme = readProgress("kesme2-day-" + date);
     const aralaResult = readProgress("aradle_result_v1")[aralaDay];
     const completed = {
       Harfle: harfle.done === true || harfle.win === true,
@@ -69,6 +70,7 @@
   }
 
 
+  window.TrPuzzleProgress = dailyProgress;
   function refresh() {
     const button = document.getElementById("tpPlay");
     const title = document.querySelector("#tp-splash .tp-name");

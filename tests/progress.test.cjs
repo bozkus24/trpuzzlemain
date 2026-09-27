@@ -117,3 +117,13 @@ test('Harf500 ara sayfası kaydedilmeden önce seçilen seviyeyi izler', () => {
   env.select('zor'); env.segmentEvents.keydown(); assert.equal(env.button.textContent, 'Sonucu Gör');
   env.select('standart'); env.segmentEvents.click(); assert.equal(env.button.textContent, 'Oyna');
 });
+
+test('Türkiye gece yarısında Harf500 ve Kesme yeni günün kaydını okur', () => {
+ const env=setup();
+ env.save('word500tr.oyun.standart.2026-09-26',{surum:1,gecmis:[{}],bitti:true});
+ env.save('kesme2-day-2026-09-26',{cut:[1,2,3,4]});
+ env.setDate(new Date('2026-09-25T20:59:59Z')); env.events.focus();
+ assert.equal(env.label('Harf500'),'Oyna'); assert.equal(env.label('Kesme'),'Oyna');
+ env.setDate(new Date('2026-09-25T21:00:00Z')); env.events.focus();
+ assert.equal(env.label('Harf500'),'Sonucu Gör'); assert.equal(env.label('Kesme'),'Sonucu Gör');
+});

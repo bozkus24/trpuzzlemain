@@ -18,6 +18,7 @@ def build():
     helpers = helpers.replace('const settings = readProgress("word500tr.ayarlar");',
                               'const settings = readProgress("word500tr.ayarlar");\n    if (selectedLevel) settings.seviye = selectedLevel;')
     controller = '''
+  window.TrPuzzleProgress = dailyProgress;
   function refresh() {
     const button = document.getElementById("tpPlay");
     const title = document.querySelector("#tp-splash .tp-name");
@@ -59,5 +60,13 @@ if __name__ == '__main__':
     if args.games:
         for game in GAMES:
             path = ROOT.parent / game / ('index.src.html' if game == 'trpuzzle6' else 'index.html')
-            path.write_text(embed(path.read_text(), source))
+            html = embed(path.read_text(), source).replace('>Hakkında<', '>Hakkımızda<')
+            for name, target in [('game-clock', '</head>'), ('game-experience', '</body>')]:
+                start, end = '<!-- ' + name + '-start -->', '<!-- ' + name + '-end -->'
+                block = start + '\n<script>\n' + (ROOT / 'assets' / (name + '.js')).read_text() + '\n</script>\n' + end
+                if start in html:
+                    html = re.sub(re.escape(start) + r'.*?' + re.escape(end), lambda _: block, html, flags=re.S)
+                else:
+                    html = html.replace(target, block + '\n' + target, 1)
+            path.write_text(html)
             print(path)
