@@ -26,8 +26,10 @@ def build():
     const selected = document.querySelector('#tpSeg [data-seviye][aria-checked="true"]');
     const state = dailyProgress(new Date(), selected && selected.getAttribute("data-seviye"))[title.textContent.trim()];
     button.textContent = state === "completed" ? "Sonucu Gör" : state === "started" ? "Devam Et" : "Oyna";
+    button.setAttribute("data-progress-ready", "");
   }
   refresh();
+  document.addEventListener("DOMContentLoaded", refresh);
   window.addEventListener("pageshow", refresh);
   window.addEventListener("storage", refresh);
   window.addEventListener("focus", refresh);
@@ -44,10 +46,12 @@ def build():
 
 def embed(html, source):
     block = START + '\n<script>\n' + source + '</script>\n' + END
-    if START in html:
-        return re.sub(re.escape(START) + r'.*?' + re.escape(END), lambda _: block, html, flags=re.S)
-    assert '</body>' in html
-    return html.replace('</body>', block + '\n</body>', 1)
+    if '#tpPlay:not([data-progress-ready])' not in html:
+        html = html.replace('</head>', '<style>#tpPlay:not([data-progress-ready]){visibility:hidden}</style>\n</head>', 1)
+    html = re.sub(re.escape(START) + r'.*?' + re.escape(END), '', html, flags=re.S)
+    pattern = r'(<button\b[^>]*id="tpPlay"[^>]*>.*?</button>)'
+    assert re.search(pattern, html, re.S)
+    return re.sub(pattern, lambda m: m[1] + '\n' + block, html, count=1, flags=re.S)
 
 
 if __name__ == '__main__':
@@ -61,12 +65,12 @@ if __name__ == '__main__':
         for game in GAMES:
             path = ROOT.parent / game / ('index.src.html' if game == 'trpuzzle6' else 'index.html')
             html = embed(path.read_text(), source).replace('>Hakkında<', '>Hakkımızda<')
-            for name, target in [('game-clock', '</head>'), ('game-experience', '</body>')]:
+            for name, target in [('game-security', '<head>'), ('game-clock', '</head>'), ('game-experience', '</body>')]:
                 start, end = '<!-- ' + name + '-start -->', '<!-- ' + name + '-end -->'
                 block = start + '\n<script>\n' + (ROOT / 'assets' / (name + '.js')).read_text() + '\n</script>\n' + end
                 if start in html:
                     html = re.sub(re.escape(start) + r'.*?' + re.escape(end), lambda _: block, html, flags=re.S)
                 else:
-                    html = html.replace(target, block + '\n' + target, 1)
+                    html = html.replace(target, target + '\n' + block if target == '<head>' else block + '\n' + target, 1)
             path.write_text(html)
             print(path)

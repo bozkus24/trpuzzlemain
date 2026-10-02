@@ -17,7 +17,7 @@
     const year = tr.getUTCFullYear(), month = tr.getUTCMonth(), day = tr.getUTCDate();
     const date = year + "-" + String(month + 1).padStart(2, "0") + "-" + String(day).padStart(2, "0");
     const dayId = Math.floor(Date.UTC(year, month, day) / 86400000);
-    const puzzleNo = dayId - Date.UTC(2026, 7, 1) / 86400000 + 1;
+    const puzzleNo = dayId - Date.UTC(2026, 9, 3) / 86400000 + 1;
     const midnight = Date.UTC(year, month, day);
     const foxNo = Math.floor((midnight - Date.UTC(2026, 7, 1)) / 86400000) + 1;
     const aralaDay = Math.round((midnight - Date.UTC(2026, 0, 1)) / 86400000);
@@ -30,7 +30,7 @@
     const harf500 = readProgress("word500tr.oyun." + level + "." + date);
     const baklava = readProgress("petek-progress-v1")[dayId] || {};
     const tilkile = readProgress("foximax-daily-" + foxNo);
-    const bagla = readProgress("baglantilar.gunluk." + puzzleNo);
+    const bagla = puzzleNo >= 1 ? readProgress("baglantilar.2026-10-03.gunluk." + puzzleNo) : {};
     const sehirle = readProgress("iller-globle:daily:" + date);
     const oldArala = readProgress("aradle_day_v1");
     const arala = readProgress("aradle_days_v2")[aralaDay] ||
@@ -78,8 +78,10 @@
     const selected = document.querySelector('#tpSeg [data-seviye][aria-checked="true"]');
     const state = dailyProgress(new Date(), selected && selected.getAttribute("data-seviye"))[title.textContent.trim()];
     button.textContent = state === "completed" ? "Sonucu Gör" : state === "started" ? "Devam Et" : "Oyna";
+    button.setAttribute("data-progress-ready", "");
   }
   refresh();
+  document.addEventListener("DOMContentLoaded", refresh);
   window.addEventListener("pageshow", refresh);
   window.addEventListener("storage", refresh);
   window.addEventListener("focus", refresh);

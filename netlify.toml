@@ -1,5 +1,5 @@
 # Netlify yapılandırması — TrPuzzle anasayfa
-# Statik site; derleme adımı yok, kök dizin olduğu gibi yayımlanır.
+# Yayın klasörü yalnızca statik site dosyalarını içerir.
 #
 # ÖNEMLİ: Proxy kuralları, her oyunun Netlify sitesinin TAM OLARAK şu adlarla
 # adlandırılmasını bekler (Site settings -> Change site name):
@@ -12,8 +12,13 @@
 # vekâlet edilir; adres trpuzzle.com'da kalır.
 
 [build]
-  publish = "."
-  command = ""
+  publish = "dist"
+  command = "python3 tools/build_publish.py"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["server/catalog.enc"]
 
 # ── Oyun yolları -> oyun siteleri (proxy) ──
 
@@ -62,6 +67,7 @@
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
+    Content-Security-Policy = "object-src 'none'; base-uri 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"

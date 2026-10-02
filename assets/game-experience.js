@@ -1,7 +1,7 @@
 /* Oyunların ortak kısa anlatımı ve sonuçtan sonraki gezinme. */
 (function () {
-  const names = ['Harfle','Harf500','Baklava','Arala','Tilkile','Kesme','Bağla','Şehirle'];
-  const paths = ['harfle','harf500','baklava','arala','tilkile','kesme','bagla','sehirle'];
+  const names = ['Harfle','Baklava','Bağla','Kesme','Tilkile','Arala','Şehirle','Harf500'];
+  const paths = ['harfle','baklava','bagla','kesme','tilkile','arala','sehirle','harf500'];
   const title = document.querySelector('#tp-splash .tp-name');
   const game = title && title.textContent.trim();
   const configs = {
@@ -145,7 +145,8 @@
       const message=next?'Bugün bir bulmaca daha?':'Harika, bugünkü sekiz oyunu tamamladın!';
       if(section.firstChild.textContent!==message)section.firstChild.textContent=message;
       const link=section.querySelector('.tp-next-game');
-      if(link.hidden!==!next)link.hidden=!next;
+      link.hidden=false;
+      if(!next) { link.textContent='Arşivden oyna'; link.setAttribute('href','/'+(game==='Şehirle'?'harfle':paths[names.indexOf(game)])+'/#arsiv'); }
       if(next) { const label=next+' · '+(progress[next]==='started'?'Devam Et':'Oyna');if(link.textContent!==label)link.textContent=label;const href='/'+paths[names.indexOf(next)]+'/';if(link.getAttribute('href')!==href)link.setAttribute('href',href); }
     });
   }

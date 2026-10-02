@@ -7,20 +7,20 @@ const path = require('node:path');
 const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 const source = html.slice(html.indexOf('  const playLinks ='), html.indexOf('\n  playLinks.forEach(function (link) {\n    link.addEventListener'));
 const games = ['Harfle', 'Harf500', 'Baklava', 'Arala', 'Tilkile', 'Kesme', 'Bağla', 'Şehirle'];
-const now = new Date(2026, 8, 25, 12);
-const dayId = Date.UTC(2026, 8, 25) / 86400000;
-const puzzleNo = dayId - Date.UTC(2026, 7, 1) / 86400000 + 1;
-const midnight = new Date(2026, 8, 25).getTime();
+const now = new Date(2026, 9, 3, 12);
+const dayId = Date.UTC(2026, 9, 3) / 86400000;
+const puzzleNo = dayId - Date.UTC(2026, 9, 3) / 86400000 + 1;
+const midnight = new Date(2026, 9, 3).getTime();
 const foxNo = Math.floor((midnight - new Date(2026, 7, 1)) / 86400000) + 1;
 const aralaDay = Math.round((midnight - new Date(2026, 0, 1)) / 86400000);
 const fixtures = [
-  ['Harfle', 'trw-2026-09-25', { guesses: ['KALEM'], done: false }, { guesses: [] }, { done: true }],
-  ['Harf500', 'word500tr.oyun.standart.2026-09-25', { surum: 1, gecmis: [{ kelime: 'KALEM' }], bitti: false }, { gecmis: [], aktif: 'KALEM' }, { bitti: true }],
+  ['Harfle', 'trw-2026-10-03', { guesses: ['KALEM'], done: false }, { guesses: [] }, { done: true }],
+  ['Harf500', 'word500tr.oyun.standart.2026-10-03', { surum: 1, gecmis: [{ kelime: 'KALEM' }], bitti: false }, { gecmis: [], aktif: 'KALEM' }, { bitti: true }],
   ['Baklava', 'petek-progress-v1', { swapsLeft: 14, phase: 'play' }, { swapsLeft: 15 }, { phase: 'win' }, dayId],
   ['Arala', 'aradle_days_v2', { steps: 1, done: false }, { steps: 0 }, { done: true }, aralaDay],
   ['Tilkile', 'foximax-daily-' + foxNo, { guessed: ['A'], status: 'playing' }, { guessed: [] }, { status: 'lost' }],
-  ['Bağla', 'baglantilar.gunluk.' + puzzleNo, { tahminler: [[1, 2, 3, 4]], durum: 'oyunda' }, { tahminler: [] }, { durum: 'kazandi' }],
-  ['Şehirle', 'iller-globle:daily:2026-09-25', { guesses: ['Ankara'], won: false, gaveUp: false }, { guesses: [] }, { gaveUp: true }]
+  ['Bağla', 'baglantilar.2026-10-03.gunluk.' + puzzleNo, { tahminler: [[1, 2, 3, 4]], durum: 'oyunda' }, { tahminler: [] }, { durum: 'kazandi' }],
+  ['Şehirle', 'iller-globle:daily:2026-10-03', { guesses: ['Ankara'], won: false, gaveUp: false }, { guesses: [] }, { gaveUp: true }]
 ];
 function setup() {
   let clock = now;
@@ -51,13 +51,13 @@ for (const [game, key, started, empty, finished, mapKey] of fixtures) {
     save({}); env.events.pageshow(); assert.equal(env.label(game), 'Devam Et');
     save(finished); env.events.storage(); assert.equal(env.label(game), 'Sonucu Gör');
     save({}); env.events.focus(); assert.equal(env.label(game), 'Devam Et');
-    env.setDate(new Date(2026, 8, 26, 0, 1)); env.events.timer();
+    env.setDate(new Date(2026, 9, 4, 0, 1)); env.events.timer();
     assert.equal(env.label(game), 'Oyna', 'eski günün kaydı yeni güne taşınmamalı');
   });
 }
 test('Harf500 yalnız açılışta yüklenen seviyeyi gösterir', () => {
   const env = setup();
-  env.save('word500tr.oyun.kolay.2026-09-25', { surum: 1, gecmis: [{}], bitti: false });
+  env.save('word500tr.oyun.kolay.2026-10-03', { surum: 1, gecmis: [{}], bitti: false });
   env.events.storage(); assert.equal(env.label('Harf500'), 'Oyna');
   env.save('word500tr.ayarlar', { seviye: 'kolay' });
   env.events.visibilitychange(); assert.equal(env.label('Harf500'), 'Devam Et');
@@ -71,7 +71,7 @@ test('Arala eski kayıt biçimini okur; yeni kayıt varsa onu esas alır', () =>
 });
 test('Kesme tamamlanmış tek hamleyi devam edilecek oyun saymaz', () => {
   const env = setup();
-  env.save('kesme2-day-2026-09-25', { cut: [0, 0, 1, 1], win: true });
+  env.save('kesme2-day-2026-10-03', { cut: [0, 0, 1, 1], win: true });
   env.events.pageshow(); assert.equal(env.label('Kesme'), 'Sonucu Gör');
 });
 test('Bozuk veya erişilemeyen depolama anasayfayı bozmaz', () => {
@@ -86,9 +86,10 @@ test('Bozuk veya erişilemeyen depolama anasayfayı bozmaz', () => {
 });
 
 const splashSource = fs.readFileSync(path.join(__dirname, '..', 'assets', 'splash-progress.js'), 'utf8');
-function splash(game) {
+function splash(game, initial = []) {
   const env = setup();
-  const button = { textContent: 'Oyna' };
+  initial.forEach(([key, value]) => env.save(key, value));
+  const button = { textContent: 'Oyna', visibleLabels: [], setAttribute() { this.visibleLabels.push(this.textContent); } };
   const segmentEvents = {};
   let level = null;
   env.sandbox.document.getElementById = id => id === 'tpPlay' ? button : id === 'tpSeg' ? { addEventListener: (name, fn) => segmentEvents[name] = fn } : null;
@@ -103,16 +104,16 @@ test('Ara sayfa ve anasayfa tüm oyunlarda aynı üç durumu gösterir', () => {
     const save = patch => env.save(key, mapKey === undefined ? { ...started, ...patch } : { [mapKey]: { ...started, ...patch } });
     save({}); env.events.pageshow(); assert.equal(env.button.textContent, 'Devam Et', game);
     save(finished); env.events.storage(); assert.equal(env.button.textContent, 'Sonucu Gör', game);
-    env.setDate(new Date(2026, 8, 26, 12)); env.events.timer(); assert.equal(env.button.textContent, 'Oyna', game);
+    env.setDate(new Date(2026, 9, 4, 12)); env.events.timer(); assert.equal(env.button.textContent, 'Oyna', game);
   }
   const env = splash('Kesme');
-  env.save('kesme2-day-2026-09-25', { cut: [0, 0, 1, 1] });
+  env.save('kesme2-day-2026-10-03', { cut: [0, 0, 1, 1] });
   env.events.pageshow(); assert.equal(env.button.textContent, 'Sonucu Gör');
 });
 test('Harf500 ara sayfası kaydedilmeden önce seçilen seviyeyi izler', () => {
   const env = splash('Harf500');
-  env.save('word500tr.oyun.kolay.2026-09-25', { surum: 1, gecmis: [{}], bitti: false });
-  env.save('word500tr.oyun.zor.2026-09-25', { surum: 1, gecmis: [{}], bitti: true });
+  env.save('word500tr.oyun.kolay.2026-10-03', { surum: 1, gecmis: [{}], bitti: false });
+  env.save('word500tr.oyun.zor.2026-10-03', { surum: 1, gecmis: [{}], bitti: true });
   env.select('kolay'); env.segmentEvents.click(); assert.equal(env.button.textContent, 'Devam Et');
   env.select('zor'); env.segmentEvents.keydown(); assert.equal(env.button.textContent, 'Sonucu Gör');
   env.select('standart'); env.segmentEvents.click(); assert.equal(env.button.textContent, 'Oyna');
@@ -120,10 +121,30 @@ test('Harf500 ara sayfası kaydedilmeden önce seçilen seviyeyi izler', () => {
 
 test('Türkiye gece yarısında Harf500 ve Kesme yeni günün kaydını okur', () => {
  const env=setup();
- env.save('word500tr.oyun.standart.2026-09-26',{surum:1,gecmis:[{}],bitti:true});
- env.save('kesme2-day-2026-09-26',{cut:[1,2,3,4]});
- env.setDate(new Date('2026-09-25T20:59:59Z')); env.events.focus();
+ env.save('word500tr.oyun.standart.2026-10-04',{surum:1,gecmis:[{}],bitti:true});
+ env.save('kesme2-day-2026-10-04',{cut:[1,2,3,4]});
+ env.setDate(new Date('2026-10-03T20:59:59Z')); env.events.focus();
  assert.equal(env.label('Harf500'),'Oyna'); assert.equal(env.label('Kesme'),'Oyna');
- env.setDate(new Date('2026-09-25T21:00:00Z')); env.events.focus();
+ env.setDate(new Date('2026-10-03T21:00:00Z')); env.events.focus();
  assert.equal(env.label('Harf500'),'Sonucu Gör'); assert.equal(env.label('Kesme'),'Sonucu Gör');
+});
+
+test('Kaydedilmiş oyun ara sayfada ilk görünür anda doğru etiketi alır', () => {
+  for (const [game, key, started, , finished, mapKey] of fixtures) {
+    for (const [patch, expected] of [[{}, 'Devam Et'], [finished, 'Sonucu Gör']]) {
+      const record = {...started, ...patch};
+      const value = mapKey === undefined ? record : {[mapKey]: record};
+      const env = splash(game, [[key, value]]);
+      assert.deepEqual(env.button.visibleLabels, [expected], game);
+    }
+  }
+});
+
+test('Bağla yeni seri: eski sonuç yok sayılır, 3 Ekim Türkiye gece yarısında yeni kayıt okunur', () => {
+  const env=setup();
+  env.save('baglantilar.gunluk.1',{durum:'kazandi'});
+  env.events.focus(); assert.equal(env.label('Bağla'),'Oyna');
+  env.save('baglantilar.2026-10-03.gunluk.1',{durum:'kazandi'});
+  env.setDate(new Date('2026-10-02T20:59:59Z'));env.events.focus();assert.equal(env.label('Bağla'),'Oyna');
+  env.setDate(new Date('2026-10-02T21:00:00Z'));env.events.focus();assert.equal(env.label('Bağla'),'Sonucu Gör');
 });
