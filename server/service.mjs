@@ -9,7 +9,7 @@ export function createService({data,key,cutover,clock=()=>new Date()}){
   ensure(validDate(cutover),'SERVER_NOT_CONFIGURED');
   function validateSession(s){
     ensure(s&&s.v===1&&GAMES.includes(s.game)&&['daily','archive','practice'].includes(s.mode)&&validDate(s.date),'INVALID_SESSION');
-    ensure(s.date>=(s.game==='bagla'?'2026-10-03':s.game==='kesme'?'2026-10-01':'2026-08-01')&&s.date<=dateKey(clock()),'PUZZLE_UNAVAILABLE');
+    ensure(s.date>=(s.game==='bagla'?'2026-10-03':'2026-10-01')&&s.date<=dateKey(clock()),'PUZZLE_UNAVAILABLE');
     ensure(Array.isArray(s.moves)&&s.moves.length<=limits[s.game],'INVALID_SESSION');
     ensure(s.game!=='harf500'||['kolay','standart','zor'].includes(s.level),'INVALID_SESSION');
     ensure(s.cutover===cutover,'INVALID_SESSION');

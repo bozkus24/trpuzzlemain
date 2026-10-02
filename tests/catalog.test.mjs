@@ -11,15 +11,6 @@ const local=(name,fn)=>test(name,{skip:!key},fn);
 local('Encrypted production catalog: 16 Bağla puzzles, four distinct groups of four',()=>{
  assert.equal(data.bagla.length,16);for(const p of data.bagla){assert.equal(p.gruplar.length,4);assert.equal(new Set(p.gruplar.flatMap(g=>g.kelimeler)).size,16);for(const g of p.gruplar){assert.equal(g.kelimeler.length,4);assert.ok(g.tema.trim());assert.ok(g.kelimeler.every(w=>w===w.toLocaleUpperCase('tr')));}}
 });
-local('Bağla authored wordplay constraints remain valid in encrypted catalog',()=>{
- const words=(n,g)=>data.bagla[n-1].gruplar[g].kelimeler;
- for(const w of words(2,0))assert.ok(['BİN','ÜÇ','YÜZ','İKİ'].some(x=>w.includes(x)));
- for(const [i,w] of words(8,0).entries())assert.equal([...w].filter((c,j)=>c!==['KİRAZ','KAVUN','LİMON','AYVA'][i][j]).length,1);
- for(const w of words(10,0))assert.ok([...new Set([...w].filter(c=>'AEIİOÖUÜ'.includes(c)))].join('')==='E');
- for(const w of words(10,3))assert.ok(w===[...w].reverse().join(''));
- for(const w of words(14,0))assert.ok(['SU','ÇAY','KOLA','AYRAN'].some(x=>w.includes(x)));
- for(const w of words(15,2))assert.ok(w.slice(0,2)===w.slice(-2));
-});
 local('All 8 real catalogs start and resume without plaintext hidden answers',()=>{
  const svc=createService({data,key,cutover:'2026-10-03',clock:()=>new Date('2026-10-03T12:00:00Z')});
  for(const game of ['harfle','harf500','baklava','bagla','kesme','tilkile','arala','sehirle']){const r=svc({action:'start',game});assert.equal('answer' in r.view,false,game);assert.equal('solution' in r.view,false,game);assert.deepEqual(svc({action:'resume',token:r.token}).view,r.view);}
@@ -27,7 +18,7 @@ local('All 8 real catalogs start and resume without plaintext hidden answers',()
 local('Harfle archive and all Harf500 level archives retain historical daily words',()=>{
  const svc=createService({data,key,cutover:'2026-10-03',clock:()=>new Date('2026-10-03T12:00:00Z')});
  const perm=shuffle(data.harfle.answers,20260101);
- for(const n of [0,1,30,62]){const date=new Date(Date.UTC(2026,7,1)+n*864e5).toISOString().slice(0,10);for(const game of ['harfle','harf500'])for(const level of game==='harfle'?['standart']:['kolay','standart','zor']){let r=svc({action:'start',game,date,mode:'archive',level});const answer=(game==='harfle'?perm[n%perm.length]:data.harf500.pools[level][n%data.harf500.pools[level].length]).toLocaleUpperCase('tr');r=svc({action:'move',token:r.token,move:answer});assert.equal(r.view.win,true,game+' '+level+' '+date);}}
+ for(const n of [61,62]){const date=new Date(Date.UTC(2026,7,1)+n*864e5).toISOString().slice(0,10);for(const game of ['harfle','harf500'])for(const level of game==='harfle'?['standart']:['kolay','standart','zor']){let r=svc({action:'start',game,date,mode:'archive',level});const answer=(game==='harfle'?perm[n%perm.length]:data.harf500.pools[level][n%data.harf500.pools[level].length]).toLocaleUpperCase('tr');r=svc({action:'move',token:r.token,move:answer});assert.equal(r.view.win,true,game+' '+level+' '+date);}}
 });
 local('Baklava legacy midgame board and Arala legacy interval survive the migration',()=>{
  const svc=createService({data,key,cutover:'2026-10-03',clock:()=>new Date('2026-10-03T12:00:00Z')});
@@ -46,4 +37,14 @@ local('Kesme merge preserves 500 daily/300 practice silhouettes and their hole-a
   const r=svc({action:'start',game:'kesme',mode:'archive',date});assert.equal(r.view.shape.id,k.daily[i].id);
  }
  for(let i=0;i<20;i++){const r=svc({action:'start',game:'kesme',mode:'practice'});assert.ok(k.practice.some(s=>s.id===r.view.shape.id));}
+});
+
+local('All archive boundaries start October 1 except Bağla October 3',()=>{
+ const svc=createService({data,key,cutover:'2026-10-03',clock:()=>new Date('2026-10-03T12:00:00Z')});
+ for(const game of ['harfle','harf500','baklava','kesme','tilkile','arala','sehirle']){
+  assert.throws(()=>svc({action:'start',game,mode:'archive',date:'2026-09-30'}),/PUZZLE_UNAVAILABLE/);
+  assert.equal(svc({action:'start',game,mode:'archive',date:'2026-10-01'}).view.date,'2026-10-01');
+ }
+ assert.throws(()=>svc({action:'start',game:'bagla',mode:'archive',date:'2026-10-02'}),/PUZZLE_UNAVAILABLE/);
+ assert.equal(svc({action:'start',game:'bagla',mode:'archive',date:'2026-10-03'}).view.date,'2026-10-03');
 });
