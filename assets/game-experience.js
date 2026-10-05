@@ -131,7 +131,51 @@
     Baklava:['#endOverlay .modal'], Arala:['#statsModal .modal'],
     Tilkile:['#end-modal .modal','#stats-modal .modal'], Kesme:['#statsModal .sheet'], 'Bağla':['#perdeSonuc .modal','#perdeIst .modal']
   };
+  // One clock per result panel; all games share the same Turkey midnight.
+  const resultHosts = {...hosts, 'Şehirle':['.modal-card[aria-label="İstatistikler"]']};
+  const nextLabels = {Harfle:"Harfle’ye",Harf500:"Harf500’e",Baklava:"Baklava’ya",Arala:"Arala’ya",Tilkile:"Tilkile’ye",Kesme:"Kesme’ye",'Bağla':"Bağla’ya",'Şehirle':"Şehirle’ye"};
+  const clockStyle = document.createElement('style');
+  clockStyle.textContent = `
+    .tp-result-host .geri-sayim,.tp-result-host #endCd,.tp-result-host #countdown {display:none!important}
+    .tp-result-clock {display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;margin:14px 0 4px;color:inherit;font:inherit;font-size:13px;line-height:1.5;text-align:center}
+    .tp-result-clock[hidden] {display:none}
+    .tp-result-clock-title {opacity:.65}
+    .tp-clock-digits {display:inline-flex;align-items:center;font-variant-numeric:tabular-nums;font-size:14px;font-weight:700;letter-spacing:.03em}
+    .tp-clock-part {display:inline}
+    .tp-clock-part b {font:inherit}
+    .tp-clock-part small,.tp-result-clock-note {display:none}
+    .tp-clock-colon {margin:0 1px}
+  `;
+  document.head.append(clockStyle);
+  function refreshResultClocks() {
+    if(!nextLabels[game])return;
+    const now=new Date();
+    const remaining=window.TrPuzzleClock.remaining(now);
+    const seconds=Math.max(0,Math.floor(remaining/1000));
+    const values=[Math.floor(seconds/3600),Math.floor(seconds%3600/60),seconds%60].map(n=>String(n).padStart(2,'0'));
+    (resultHosts[game]||[]).forEach(selector=>{
+      const host=document.querySelector(selector);
+      if(!host || !host.getClientRects().length)return;
+      let clock=host.querySelector('.tp-result-clock');
+      if(!clock){
+        host.classList.add('tp-result-host');
+        clock=document.createElement('section');clock.className='tp-result-clock';
+        clock.setAttribute('aria-label','Sonraki '+game+' için geri sayım');
+        clock.innerHTML='<span class="tp-result-clock-title"></span><div class="tp-clock-digits" role="timer" aria-live="off">'+['Saat','Dakika','Saniye'].map((label,i)=>(i?'<span class="tp-clock-colon" aria-hidden="true">:</span>':'')+'<span class="tp-clock-part"><b>00</b><small>'+label+'</small></span>').join('')+'</div><small class="tp-result-clock-note">Günlük bulmaca · Türkiye saatiyle 00.00</small>';
+        clock.querySelector('.tp-result-clock-title').textContent='Sonraki '+nextLabels[game];
+        host.insertBefore(clock,host.querySelector('.tp-next'));
+      }
+      const practice=game==='Şehirle' && host.querySelector('.stat-tabs button.active')?.textContent.trim()==='Sınırsız';
+      if(clock.hidden!==practice)clock.hidden=practice;
+      clock.querySelectorAll('.tp-clock-part b').forEach((el,i)=>{if(el.textContent!==values[i])el.textContent=values[i];});
+    });
+  }
+  setInterval(refreshResultClocks,1000);
+  document.addEventListener('visibilitychange',refreshResultClocks);
+  window.addEventListener('focus',refreshResultClocks);
+
   function refreshNext() {
+    refreshResultClocks();
     if(!window.TrPuzzleProgress) return;
     const progress=window.TrPuzzleProgress(new Date());
     const current=progress[game];
