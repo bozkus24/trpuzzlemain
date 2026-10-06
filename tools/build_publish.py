@@ -32,7 +32,7 @@ if __name__ == '__main__':
         files=subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0')
         chosen=[Path(name) for name in files if name and allowed(Path(name))]
         # Known newly introduced web asset; other untracked files never enter a deploy.
-        for asset in ['assets/game-security.js','assets/game-remote.js','assets/privacy-controls.js']:
+        for asset in ['assets/game-security.js','assets/game-remote.js','assets/privacy-controls.js','assets/consent-state.js','assets/consent-config.js','assets/consent.css','cerez-politikasi.html']:
             if (ROOT/asset).is_file(): chosen.append(Path(asset))
         if not Path('index.html') in chosen: raise SystemExit('Tracked index.html is required')
         if OUT.is_symlink(): raise SystemExit('Refusing a symlink publication directory')
