@@ -45,7 +45,7 @@
   themeBtn.addEventListener("click", function () {
     const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
-    try { localStorage.setItem("trpuzzle-theme", next); } catch (e) {}
+    try { window.TrPuzzlePreferences.setItem("trpuzzle-theme", next); } catch (e) {}
     applyThemeLabel();
   });
 

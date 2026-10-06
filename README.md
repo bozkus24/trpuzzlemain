@@ -1,5 +1,11 @@
 # trpuzzlemain
 
+## Çerez ve rıza sistemi
+
+Site genelindeki kategori paneli, Consent Mode v2, betik engelleme ve Google CMP
+bağlantısının kurulumu [CONSENT.md](CONSENT.md) içindedir. Google hesabındaki
+sertifikalı CMP mesajı ve bağımsız etiketi doğrulanana kadar reklamlar kapalıdır.
+
 **[trpuzzle.com](https://trpuzzle.com)** — Türkçe günlük bulmaca oyunlarının ortak anasayfası. **Harfle**, **Harf500**, **Baklava**, **Bağla**, **Kesme**, **Şehirle**, **Tilkile** ve **Arala** oyunlarına tek sayfadan erişim sağlar.
 
 | Oyun | Repo | Yol | Netlify site adı |

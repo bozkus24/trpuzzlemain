@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<script defer id="tp-privacy-script" src="/assets/privacy-controls.js?v=consent-v1"></script>
+<meta charset="utf-8">
+<!-- trpuzzle-consent-start -->
+<script>
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+window.gtag('consent', 'default', {
+  ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  analytics_storage: 'denied', functionality_storage: 'denied',
+  personalization_storage: 'denied', security_storage: 'granted'
+});
+window.gtag('set', 'ads_data_redaction', true);
+window.gtag('set', 'url_passthrough', false);
+</script>
+<script src="/assets/consent-state.js?v=20261006"></script>
+<script src="/assets/consent-config.js?v=20261006"></script>
+<link rel="stylesheet" href="/assets/consent.css?v=20261006">
+<script defer id="tp-privacy-script" src="/assets/privacy-controls.js?v=20261006"></script>
+<!-- trpuzzle-consent-end -->
+
 <meta name="google-adsense-account" content="ca-pub-7993571496408496">
 
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>İletişim - TrPuzzle</title>
@@ -589,7 +606,7 @@ main {
   <script>
     (function () {
       var saved = null;
-      try { saved = localStorage.getItem("trpuzzle-theme"); } catch (e) {}
+      try { saved = window.TrPuzzlePreferences.getItem("trpuzzle-theme"); } catch (e) {}
       var theme = saved === "light" || saved === "dark"
         ? saved
         : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
@@ -637,8 +654,10 @@ main {
     <nav class="footer-links">
       <a href="/hakkinda.html">Hakkımızda</a>
       <a href="/iletisim.html">İletişim</a>
-      <a href="/gizlilik.html">Gizlilik ve Çerezler</a>
+      <a href="/gizlilik.html">Gizlilik Politikası</a>
       <a href="/kosullar.html">Kullanım Koşulları</a>
+
+      <a class="tp-privacy-link" href="/cerez-politikasi.html" data-privacy-preferences>Çerez Ayarları</a>
     </nav>
   </footer>
 

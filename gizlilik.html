@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<script defer id="tp-privacy-script" src="/assets/privacy-controls.js?v=consent-v1"></script>
+<meta charset="utf-8">
+<!-- trpuzzle-consent-start -->
+<script>
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+window.gtag('consent', 'default', {
+  ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+  analytics_storage: 'denied', functionality_storage: 'denied',
+  personalization_storage: 'denied', security_storage: 'granted'
+});
+window.gtag('set', 'ads_data_redaction', true);
+window.gtag('set', 'url_passthrough', false);
+</script>
+<script src="/assets/consent-state.js?v=20261006"></script>
+<script src="/assets/consent-config.js?v=20261006"></script>
+<link rel="stylesheet" href="/assets/consent.css?v=20261006">
+<script defer id="tp-privacy-script" src="/assets/privacy-controls.js?v=20261006"></script>
+<!-- trpuzzle-consent-end -->
+
 <meta name="google-adsense-account" content="ca-pub-7993571496408496">
 
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Gizlilik ve Çerez Politikası - TrPuzzle</title>
-  <meta name="description" content="TrPuzzle gizlilik ve çerez politikası: oyun verileri cihazında kalır; üçüncü taraf reklam hizmetleri ve veri kullanımı açıklanır.">
+  <title>Gizlilik Politikası - TrPuzzle</title>
+  <meta name="description" content="TrPuzzle gizlilik politikası: oyun verileri, yerel depolama, izin kategorileri ve hakların.">
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" type="image/png" href="/assets/favicon.png" sizes="192x192">
   <meta name="theme-color" content="#14161b">
@@ -561,7 +578,7 @@ main {
   <script>
     (function () {
       var saved = null;
-      try { saved = localStorage.getItem("trpuzzle-theme"); } catch (e) {}
+      try { saved = window.TrPuzzlePreferences.getItem("trpuzzle-theme"); } catch (e) {}
       var theme = saved === "light" || saved === "dark"
         ? saved
         : (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
@@ -577,7 +594,7 @@ main {
   </header>
 
   <main class="legal">
-    <h1>Gizlilik ve Çerez Politikası</h1>
+    <h1>Gizlilik Politikası</h1>
     <p class="updated">Son güncelleme: 6 Ekim 2026</p>
 
     <h2>1. Veri sorumlusu</h2>
@@ -597,8 +614,7 @@ main {
         Bu kayıtlara profilleme ya da reklam amaçlı erişmeyiz.
       </li>
       <li>
-        <strong>Yerel depolama (localStorage):</strong> Tema tercihin, oyun ilerlemen ve
-        istatistiklerin tarayıcında saklanır; tarayıcı verilerini temizleyerek dilediğin an silebilirsin.
+        <strong>Yerel depolama (localStorage):</strong> Oyun ilerlemen ve istatistiklerin tarayıcında saklanır; tema gibi isteğe bağlı tercihler işlevsellik izniyle kalıcı tutulur; tarayıcı verilerini temizleyerek dilediğin an silebilirsin.
       </li>
       <li>
         <strong>Oyun doğrulaması:</strong> Tahminlerin, hamlelerin, bulmaca tarihi ve şifreli
@@ -614,16 +630,12 @@ main {
       </li>
     </ul>
 
-    <h2>3. Çerezler ve reklam tercihleri</h2>
-    <p>İlk ziyaretinde reklam hizmetini kabul edebilir veya reddedebilirsin. Karar vermeden ve reddettiğinde Google AdSense kodunu yüklemeyiz. Tercihin, bu tarayıcıda en fazla 180 gün saklanır; tarayıcı depolaması kapalıysa yeniden sorulabilir. Sayfanın altındaki <strong>Çerez tercihleri</strong> bağlantısından kararını değiştirebilirsin. Reklam iznini geri aldığında çalışan reklam kodlarını durdurmak için sayfa yenilenir. Oyun kayıtların silinmez. Üçüncü tarafların önceden oluşturduğu çerezleri silmek için tarayıcı ayarlarını kullanabilirsin. Google’ın bölgeye ve sağlayıcılara özel izin seçenekleri ayrıca Google tarafından yönetilir.</p>
-    <p>
-      TrPuzzle'ın oyun işlevleri çerez gerektirmez; tema, ilerleme ve istatistikler için
-      localStorage kullanılır. Reklam sağlayıcıları, yürürlükteki mevzuata ve kullanıcının
-      izin tercihlerine bağlı olarak reklam sunumu, ölçüm ve güvenlik amacıyla çerezler veya
-      benzer teknolojiler kullanabilir. Sağlayıcıya özel reklam tercihleri bağlantıları
-      aşağıdaki bölümde yer alır. Tarayıcı ayarlarından çerezleri silebilir veya engelleyebilirsin;
-      bu durumda bazı reklam özellikleri beklendiği gibi çalışmayabilir.
-    </p>
+    <h2>3. Çerezler, yerel depolama ve rıza</h2>
+    <p>İlk ziyaretinde Tümünü Kabul Et, Tümünü Reddet veya Ayarları Yönet seçeneklerini kullanabilirsin. Reklam, analitik ve işlevsellik kategorileri varsayılan olarak kapalıdır. Sayfayı kullanmak, kaydırmak veya paneli kapatmak onay sayılmaz. İzin vermeden de bütün oyunları oynayabilirsin.</p>
+    <p>Reklam ve analitik betikleri, ilgili izin olmadan indirilmez ve çalıştırılmaz. Reklamlar için site tercihine ek olarak gerekli Google sağlayıcı izinleri doğrulanır; doğrulama yapılamazsa reklamlar kapalı kalır. Ayrıntılı sağlayıcı tercihleri, hizmet etkinleştirildiğinde Google'ın rıza ekranında yönetilir.</p>
+    <p>Seçimin tarih ve politika sürümüyle bu tarayıcıda 180 gün saklanır. Aynı trpuzzle.com adresindeki ana sayfa, bilgi sayfaları ve sekiz oyunda geçerlidir. Başka tarayıcı, cihaz veya alan adı için ayrı seçim gerekir. Eski ikili kabul kayıtları yeni kategorilere otomatik onay olarak aktarılmaz.</p>
+    <p>Alt bilgideki <strong>Çerez Ayarları</strong> bağlantısından iznini her zaman geri alabilirsin. İzin geri alındığında yeni reklam/analitik yüklemeleri durur; önceden çalışan isteğe bağlı betikleri durdurmak için gerekirse sayfa yenilenir. Oyun ilerlemen silinmez. Erişebildiğimiz ilgili birinci taraf reklam ve analitik çerezlerini temizleriz; üçüncü taraf/HttpOnly çerezleri için tarayıcı ayarlarını kullanabilirsin.</p>
+    <p>Kategoriler, saklama süreleri ve sağlayıcılar <a href="/cerez-politikasi.html">Çerez Politikası</a> sayfasında açıklanır. <a href="/cerez-politikasi.html" data-open-privacy>Tercihlerimi yönet</a>.</p>
 
     <h2>4. Reklam sağlayıcıları</h2>
     <p>
@@ -670,8 +682,10 @@ main {
     <nav class="footer-links">
       <a href="/hakkinda.html">Hakkımızda</a>
       <a href="/iletisim.html">İletişim</a>
-      <a href="/gizlilik.html">Gizlilik ve Çerezler</a>
+      <a href="/gizlilik.html">Gizlilik Politikası</a>
       <a href="/kosullar.html">Kullanım Koşulları</a>
+
+      <a class="tp-privacy-link" href="/cerez-politikasi.html" data-privacy-preferences>Çerez Ayarları</a>
     </nav>
   </footer>
 
