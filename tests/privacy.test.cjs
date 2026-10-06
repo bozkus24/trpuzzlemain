@@ -38,7 +38,10 @@ test('local acceptance does not fabricate Google consent; readiness is asynchron
  notify({cmpStatus:'loaded',gdprApplies:true,eventStatus:'cmpuishown'},true);
  assert.equal(e.window.TrPuzzlePrivacy.getStatus().googleState,'ready');
  notify({cmpStatus:'loaded',gdprApplies:true,eventStatus:'useractioncomplete',purpose:{consents:{}}},true);
+ assert.equal(e.window.TrPuzzlePrivacy.getStatus().googleState,'ready');
+ notify({cmpStatus:'loaded',cmpId:300,tcString:'mock-record',gdprApplies:true,eventStatus:'useractioncomplete',purpose:{consents:{}}},true);
  assert.equal(e.window.TrPuzzlePrivacy.getStatus().googleState,'decision');
+ assert.equal(e.window.TrPuzzlePrivacy.getStatus().hasTcString,true);
  assert.equal(JSON.parse(e.store.get('trpuzzle.privacy.v1')).choice,'accepted');
  e.window.TrPuzzlePrivacy.open();
  let calls=0;e.window.googlefc.showRevocationMessage=()=>calls++;

@@ -131,51 +131,66 @@
     Baklava:['#endOverlay .modal'], Arala:['#statsModal .modal'],
     Tilkile:['#end-modal .modal','#stats-modal .modal'], Kesme:['#statsModal .sheet'], 'Bağla':['#perdeSonuc .modal','#perdeIst .modal']
   };
-  // One clock per result panel; all games share the same Turkey midnight.
-  const resultHosts = {...hosts, 'Şehirle':['.modal-card[aria-label="İstatistikler"]']};
-  const nextLabels = {Harfle:"Harfle’ye",Harf500:"Harf500’e",Baklava:"Baklava’ya",Arala:"Arala’ya",Tilkile:"Tilkile’ye",Kesme:"Kesme’ye",'Bağla':"Bağla’ya",'Şehirle':"Şehirle’ye"};
-  const clockStyle = document.createElement('style');
-  clockStyle.textContent = `
-    .tp-result-host .geri-sayim,.tp-result-host #endCd,.tp-result-host #countdown {display:none!important}
-    .tp-result-clock {display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;margin:14px 0 4px;color:inherit;font:inherit;font-size:13px;line-height:1.5;text-align:center}
-    .tp-result-clock[hidden] {display:none}
-    .tp-result-clock-title {opacity:.65}
-    .tp-clock-digits {display:inline-flex;align-items:center;font-variant-numeric:tabular-nums;font-size:14px;font-weight:700;letter-spacing:.03em}
-    .tp-clock-part {display:inline}
-    .tp-clock-part b {font:inherit}
-    .tp-clock-part small,.tp-result-clock-note {display:none}
-    .tp-clock-colon {margin:0 1px}
-  `;
-  document.head.append(clockStyle);
-  function refreshResultClocks() {
-    if(!nextLabels[game])return;
-    const now=new Date();
-    const remaining=window.TrPuzzleClock.remaining(now);
-    const seconds=Math.max(0,Math.floor(remaining/1000));
-    const values=[Math.floor(seconds/3600),Math.floor(seconds%3600/60),seconds%60].map(n=>String(n).padStart(2,'0'));
-    (resultHosts[game]||[]).forEach(selector=>{
-      const host=document.querySelector(selector);
-      if(!host || !host.getClientRects().length)return;
-      let clock=host.querySelector('.tp-result-clock');
-      if(!clock){
-        host.classList.add('tp-result-host');
-        clock=document.createElement('section');clock.className='tp-result-clock';
-        clock.setAttribute('aria-label','Sonraki '+game+' için geri sayım');
-        clock.innerHTML='<span class="tp-result-clock-title"></span><div class="tp-clock-digits" role="timer" aria-live="off">'+['Saat','Dakika','Saniye'].map((label,i)=>(i?'<span class="tp-clock-colon" aria-hidden="true">:</span>':'')+'<span class="tp-clock-part"><b>00</b><small>'+label+'</small></span>').join('')+'</div><small class="tp-result-clock-note">Günlük bulmaca · Türkiye saatiyle 00.00</small>';
-        clock.querySelector('.tp-result-clock-title').textContent='Sonraki '+nextLabels[game];
-        host.insertBefore(clock,host.querySelector('.tp-next'));
-      }
-      const practice=game==='Şehirle' && host.querySelector('.stat-tabs button.active')?.textContent.trim()==='Sınırsız';
-      if(clock.hidden!==practice)clock.hidden=practice;
-      clock.querySelectorAll('.tp-clock-part b').forEach((el,i)=>{if(el.textContent!==values[i])el.textContent=values[i];});
+  // Result panels keep sharing focused; next-puzzle countdowns are hidden.
+  const resultClockStyle=document.createElement('style');
+  resultClockStyle.textContent='#overlay .geri-sayim,#perde-sonuc .geri-sayim,#perde-istatistik .geri-sayim,#endOverlay #endCd,#end-modal #countdown{display:none!important}';
+  document.head.append(resultClockStyle);
+  // Keep the page anchored while any dialog is open, including stacked dialogs.
+  const dialogSelector='.perde,.modal-overlay,.overlay,#howto,#settings,.modal:has(> .sheet)';
+  let scrollLock=null, touchY=null;
+  function visibleDialogs(){
+    return Array.from(document.querySelectorAll(dialogSelector)).filter(el=>{
+      const css=getComputedStyle(el);
+      return el.getClientRects().length && css.display!=='none' && css.visibility!=='hidden';
     });
   }
-  setInterval(refreshResultClocks,1000);
-  document.addEventListener('visibilitychange',refreshResultClocks);
-  window.addEventListener('focus',refreshResultClocks);
+  function saveStyles(el,props){return props.map(p=>[p,el.style.getPropertyValue(p),el.style.getPropertyPriority(p)]);}
+  function restoreStyles(el,saved){saved.forEach(([p,v,priority])=>v?el.style.setProperty(p,v,priority):el.style.removeProperty(p));}
+  function syncDialogScroll(){
+    const open=visibleDialogs().length>0;
+    if(open&&!scrollLock){
+      const body=document.body,html=document.documentElement;
+      scrollLock={x:window.scrollX,y:window.scrollY,body:saveStyles(body,['position','top','left','width','overflow']),html:saveStyles(html,['overflow','scroll-behavior'])};
+      body.style.setProperty('position','fixed','important');
+      body.style.setProperty('top',-scrollLock.y+'px','important');
+      body.style.setProperty('left',-scrollLock.x+'px','important');
+      body.style.setProperty('width','100%','important');
+      body.style.setProperty('overflow','hidden','important');
+      html.style.setProperty('overflow','hidden','important');
+    }else if(!open&&scrollLock){
+      const saved=scrollLock;scrollLock=null;
+      restoreStyles(document.body,saved.body);
+      restoreStyles(document.documentElement,saved.html);
+      document.documentElement.style.setProperty('scroll-behavior','auto','important');
+      window.scrollTo(saved.x,saved.y);
+      const behavior=saved.html.filter(([p])=>p==='scroll-behavior');
+      restoreStyles(document.documentElement,behavior);
+    }
+  }
+  const scrollStyle=document.createElement('style');
+  scrollStyle.textContent=`${dialogSelector}{overscroll-behavior:contain} .perde>.kutu,.perde>.modal,.overlay>.modal,.modal-overlay>.modal,.modal-overlay>.modal-card,.modal>.sheet{overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch}`;
+  document.head.append(scrollStyle);
+  document.addEventListener('touchstart',e=>{touchY=e.touches.length===1?e.touches[0].clientY:null;},{passive:true});
+  document.addEventListener('touchmove',e=>{
+    if(!scrollLock||touchY===null||e.touches.length!==1)return;
+    const y=e.touches[0].clientY,delta=touchY-y;touchY=y;
+    if(!delta)return;
+    const dialogs=visibleDialogs();
+    let el=e.target instanceof Element?e.target:null;
+    if(el&&dialogs.some(d=>d.contains(el))){
+      while(el&&el!==document.body){
+        const css=getComputedStyle(el),max=el.scrollHeight-el.clientHeight;
+        if(/auto|scroll/.test(css.overflowY)&&max>1&&((delta>0&&el.scrollTop<max-1)||(delta<0&&el.scrollTop>1)))return;
+        el=el.parentElement;
+      }
+    }
+    if(e.cancelable)e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchend',()=>{touchY=null;},{passive:true});
+  document.addEventListener('touchcancel',()=>{touchY=null;},{passive:true});
 
   function refreshNext() {
-    refreshResultClocks();
+    syncDialogScroll();
     if(!window.TrPuzzleProgress) return;
     const progress=window.TrPuzzleProgress(new Date());
     const current=progress[game];
@@ -195,6 +210,6 @@
     });
   }
   let queued=false;
-  new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;refreshNext();});}).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','class']});
+  new MutationObserver(records=>{if(records.every(r=>r.type==='attributes'&&r.attributeName==='style'&&!r.target.matches(dialogSelector)))return;if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;refreshNext();});}).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','class','style']});
   refreshNext();
 })();

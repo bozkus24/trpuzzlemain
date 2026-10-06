@@ -12,6 +12,7 @@
         Number.isFinite(saved.at) && saved.at <= Date.now() && Date.now() - saved.at < MAX_AGE) choice = saved.choice;
   } catch (_) { /* Missing or unavailable storage means no advertising permission. */ }
   let googleState = 'idle', gdprApplies = null, apiSubscribed = false, googleTimer;
+  let cmpId = null, eventStatus = null, hasTcString = false;
   function updateGoogleStatus() {
     if (!dialog) return;
     const status = dialog.querySelector('.tp-privacy-status');
@@ -44,8 +45,13 @@
         }
         if (typeof data.gdprApplies === 'boolean') gdprApplies = data.gdprApplies;
         if (data.cmpStatus !== 'loaded') return;
+        cmpId = Number.isInteger(data.cmpId) ? data.cmpId : null;
+        eventStatus = data.eventStatus || null;
+        hasTcString = typeof data.tcString === 'string' && data.tcString.length > 0;
         clearTimeout(googleTimer);
-        googleState = ['tcloaded','useractioncomplete'].includes(data.eventStatus) ? 'decision' : 'ready';
+        // A ready API alone does not prove that Google's CMP supplied a consent record.
+        googleState = cmpId === 300 && hasTcString &&
+          ['tcloaded','useractioncomplete'].includes(eventStatus) ? 'decision' : 'ready';
         // A site modal must never cover the certified Google consent message.
         if (data.eventStatus === 'cmpuishown' && dialog?.open) dialog.close();
         updateGoogleStatus();
@@ -124,7 +130,7 @@
     updateGoogleStatus();
     if (!dialog.open) dialog.showModal();
   }
-  window.TrPuzzlePrivacy = Object.freeze({open: showPreferences, getStatus: function () { return {siteChoice: choice, googleState, gdprApplies, advertisingTagLoaded: adsLoaded, policyPage}; }});
+  window.TrPuzzlePrivacy = Object.freeze({open: showPreferences, getStatus: function () { return {siteChoice: choice, googleState, gdprApplies, cmpId, eventStatus, hasTcString, advertisingTagLoaded: adsLoaded, policyPage}; }});
   // Keep advertising permission in sync across tabs, including when the record is removed.
   window.addEventListener('storage', function (event) {
     if (event.key === KEY || event.key === null) window.location.reload();
